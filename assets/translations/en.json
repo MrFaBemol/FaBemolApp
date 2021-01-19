@@ -1,0 +1,310 @@
+{
+
+  "yes" : "Yes",
+  "no" : "No",
+
+  "language" : "Language",
+
+  "welcome" : "Welcome",
+  "welcome_back" : "Welcome Back",
+
+  "login" : "Log in",
+  "signin" : "Sign up",
+  "logout" : "Log out",
+  "forgot_password" : "Forgot your password?",
+
+  "email" : "Email",
+  "password" : "Password",
+  "username" : "Username",
+  "username_helper" : "Letters, numbers, dash (max 24 car.)",
+
+
+
+
+
+
+  "features_swiper_title_learn" : "Learn the music for free !",
+  "features_swiper_title_reward" : "Earn rewards through your progression !",
+  "features_swiper_title_social" : "Meet other musicians !",
+  "features_swiper_title_challenge" : "Challenge your friends !",
+
+  "features_swiper_description_learn" : "You've never played music before? No problem!\nLearn from scratch through fun lessons. And you know what? It's free!",
+  "features_swiper_description_reward" : "Go through the different chapters and earn rewards as you progress.\nExercise daily is the key to success!",
+  "features_swiper_description_social" : "Playing music is nice, but sharing it is even better !\nThanks to FaBémol, you can find other musicians apprentices close to you and practice together!",
+  "features_swiper_description_challenge" : "Have fun with our mini-games and compare your results with your friends!\nWith a bit of practice, you could climb to the top of the rankings!",
+
+  "welcome_back_text" : "Psst!\nIf this is your first visit, click on the Sign up button above my head!",
+  "welcome_text" : "I'm so happy to see a new face!\nEnter your informations to create your account and start your musical journey!",
+
+
+
+
+
+
+  "button_lets_go" : "Let's go !",
+  "button_back" : "Back",
+  "button_send" : "Send",
+  "button_continue" : "Continue",
+  "button_search" : "Search",
+  "button_watch" : "Watch",
+  "button_play" : "Play",
+
+  "send_button" : "Send",
+  "login_button" : "Log in",
+  "signin_button" : "Sign up",
+
+
+
+  "warning" : "Warning",
+  "error" : "Error",
+
+  "error_badformatted_email" : "Your email address is not valid",
+  "error_badformatted_password" : "min Length: 8 / max : 20",
+  "error_badformatted_username" : "min Length: 3 / Letters, numbers, dash",
+
+  "error_not_enough_lives" : "You don't have enough lives !",
+
+  "error_painter_empty" : "You must draw something",
+
+
+  "error_input_too_short_3" : "Minimum: 3 characters",
+  "error_social_search_already_complete" : "The results are already shown !",
+  "error_social_enter_search" : "I can't guess who you are looking for !",
+  "error_social_no_result" : "No result, sorry !",
+
+
+
+
+
+  "ask_change_language" : "Do you really want to change the app language?",
+  "reset_progression" : "Reset my progression",
+  "ask_reset_progression" : "Do you really want to reset your progression?\nThis can't be undone...",
+  "ask_logout" : "Do you really want to logout ?",
+
+  "ask_quit_lesson" : "Do you really want to quit the lesson ?\nYou will lose the lives cost...",
+  "ask_quit_challenge" : "Do you really want to quit this challenge?\nYou will lose the lives cost...",
+
+
+
+
+
+  "lives_full" : "Lives are full !",
+  "next_life" : "Next life",
+
+
+
+
+
+
+
+
+  "tab_lessons" : "Lessons",
+  "tab_social" : "Social",
+  "tab_home" : "Home",
+  "tab_challenge" : "Challenge",
+  "tab_profile" : "Profile",
+
+
+
+
+
+
+  "lessons" : "Lessons",
+
+
+  "lesson_category_notation" : "Musical notation",
+  "lesson_category_eartraining" : "Ear Training",
+  "lesson_category_history" : "History of Music",
+  "lesson_category_analysis" : "Analysis",
+  "lesson_category_organology" : "Organology",
+  "lesson_category_harmony" : "Music Writing",
+
+  "lesson_category_description_notation" : "Learn how to read and write notes!",
+  "lesson_category_description_eartraining" : "Practice to recognize notes heights and rhythms!",
+  "lesson_category_description_history" : "Discover the evolution of music through the ages!",
+  "lesson_category_description_analysis" : "Analyse composers pieces to find their secrets!",
+  "lesson_category_description_organology" : "Study the instruments and choose the one that fits you!",
+  "lesson_category_description_harmony" : "Enter in the marvelous universe of the harmony!",
+
+
+
+  "notation_subcategory_notes" : "Notes reading",
+  "notation_subcategory_rhythms" : "Rhythms",
+  "notation_subcategory_staff" : "Staff",
+  "notation_subcategory_signs" : "Other signs",
+
+  "eartraining_subcategory_registers" : "Registers and Timbres",
+  "eartraining_subcategory_intervals" : "Intervals",
+  "eartraining_subcategory_chords" : "Chords",
+  "eartraining_subcategory_dictations" : "Dictations",
+
+  "history_subcategory_periods" : "Musical periods",
+  "history_subcategory_composers" : "Composers",
+  "history_subcategory_performers" : "Performers",
+
+  "analysis_subcategory_forms" : "Musical Forms",
+  "analysis_subcategory_ensembles" : "Musical Ensembles",
+
+  "organology_subcategory_families" : "Instruments Families",
+  "organology_subcategory_ancient" : "Ancient Instruments",
+  "organology_subcategory_rare" : "Rare Instruments",
+
+  "harmony_subcategory_harmony" : "Harmony",
+  "harmony_subcategory_counterpoint" : "Counterpoint",
+  "harmony_subcategory_fugue" : "Fugue",
+  "harmony_subcategory_composition" : "Composition",
+
+
+
+
+  "generalities" : "Generalities",
+  "basics" : "Basics",
+
+  "Gkey2" : "G Key (2nd line)",
+  "Fkey4" : "F Key (th line)",
+  "Ckey3" : "C Key (3rd line)",
+  "Ckey4" : "C Key (4th line)",
+
+  "binary" : "Binary Rhythms",
+  "ternary" : "Ternary Rhythms",
+
+  "structure" : "Structure",
+  "staffhead" : "Staff Head",
+  "others" : "Others",
+
+  "dynamics" : "Dynamics",
+  "articulations" : "Articulations",
+
+
+
+  "small_intervals" : "Small intervals",
+  "big_intervals" : "Big intervals",
+  "giant_intervals" : "Intervals above the octave",
+
+  "3chords" : "3 sounds chords",
+  "4chords" : "4 sounds chords",
+  "complexchords" : "Complex chords",
+
+  "dictations_intervals" : "Intervals dictation",
+  "dictations_rhythms" : "Rhythms dictation",
+  "dictations_chords" : "Chords dictation",
+
+
+
+  "music_origins" : "Music origins",
+  "middle_ages" : "The Middle Age",
+  "renaissance" : "The Renaissance",
+  "baroque_period" : "The Baroque period",
+  "classical_period" : "The Classical period",
+  "romantic_period" : "The Romantic period",
+  "XXe_century" : "The 20th century",
+  "music_today" : "Music today",
+
+
+
+  "ancient_forms" : "Ancient forms",
+  "baroque_forms" : "Baroque forms",
+  "classical_forms" : "Classical forms",
+  "romantic_forms" : "Romantic forms",
+  "modern_forms" : "Modern forms",
+
+  "soloist" : "The soloist",
+  "chamber_music" : "The chamber music",
+  "medium_ensemble" : "Medium-size ensembles",
+  "symphonic_orchestra" : "The symphonic orchestra",
+
+
+
+  "keyboards" : "Keyboards",
+  "strings" : "Strings",
+  "woodwinds" : "Woodwinds",
+  "brass" : "Brass",
+  "percussions" : "Percussions",
+  "voices" : "Voices",
+
+  "antiquity" : "Antiquity",
+  "renaissance_baroque" : "Renaissance & Baroque",
+
+  "unusual_instruments" : "Unusual instruments",
+  "natural_instruments" : "Natural instruments",
+
+
+
+  "4chords_more" : "Chords of 4 sounds and more",
+  "nonharmonic_tones" : "Non-harmonic tones",
+  "study_styles" : "Study of styles",
+
+
+
+
+
+  "difficulty1" : "Easy",
+  "difficulty2" : "Medium",
+  "difficulty3" : "Advanced",
+  "difficulty4" : "Hard",
+
+  "description" : "Description",
+  "cost" : "Cost",
+  "start_lesson" : "Start the lesson",
+
+  "lessons_progression" : "Progression",
+
+  "lesson_finished" : "Lesson finished !",
+  "lesson_reward" : "Reward",
+  "lesson_reward_cost_bonus" : "Cost bonus",
+  "lesson_reward_difficulty_bonus" : "Difficulty bonus",
+  "lesson_reward_rewarded_ad_bonus" : "Ad bonus",
+  "lesson_reward_total" : "Total",
+
+
+
+
+
+
+
+
+
+
+
+
+  "challenges_category_note_rush" : "Note Rush",
+
+
+  "key_choice" : "Key choice",
+  "time_choice" : "Time choice",
+
+
+  "Gkey" : "G Key",
+  "Fkey" : "F Key",
+  "Ckey3_small" : "C3 Key",
+  "Ckey4_small" : "C4 Key",
+
+
+
+
+
+
+
+
+
+
+
+  "social_search_username_or_email" : "Username or Email",
+
+  "search" : "Search",
+
+
+
+
+
+
+
+
+
+  "profile_change_profile_picture" : "Change my profile picture",
+  "profile_change_cover_picture" : "Change my cover picture",
+
+  "media_take_picture" : "Take a picture",
+  "media_from_camera" : "From camera",
+  "media_from_gallery" : "From gallery"
+}

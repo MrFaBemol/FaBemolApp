@@ -1,0 +1,302 @@
+{
+
+  "yes" : "Oui",
+  "no" : "Non",
+
+  "language" : "Langue",
+
+  "welcome" : "Bienvenue",
+  "welcome_back" : "Re-bienvenue",
+
+  "login" : "Se connecter",
+  "signin" : "S'inscrire",
+  "logout" : "Se déconnecter",
+  "forgot_password" : "Mot de passe oublié ?",
+
+  "email" : "Email",
+  "password" : "Mot de passe",
+  "username" : "Nom d'utilisateur",
+  "username_helper" : "Lettres, chiffres et tirets acceptés (max 24 caractères)",
+
+
+
+
+
+  "features_swiper_title_learn" : "Apprenez la musique gratuitement !",
+  "features_swiper_title_reward" : "Progressez et gagnez des récompenses !",
+  "features_swiper_title_social" : "Rencontrez d'autres musiciens !",
+  "features_swiper_title_challenge" : "Défiez vos amis !",
+
+  "features_swiper_description_learn" : "Vous n'avez jamait fait de musique? Pas de problème!\nApprenez en partant de zéro grâce à des leçons amusantes et disponibles où que vous soyez! Et en plus, c'est gratuit!",
+  "features_swiper_description_reward" : "Parcourez les différents chapitres et gagnez des récompenses au fur et à mesure de votre progression.\nExercez vous quotidiennement, c'est la clé du succès!",
+  "features_swiper_description_social" : "Jouer de la musique c'est bien, mais la partager c'est encore mieux!\nGrâce à FaBémol, vous pouvez trouver d'autres apprentis musiciens proches de chez vous et progresser ensemble!",
+  "features_swiper_description_challenge" : "Amusez vous grâce à nos mini jeux et comparez vos résultats à ceux de vos amis!\nAvec un peu d'entrainement, vous parviendrez peut-être à vous hisser en haut du classement!",
+
+  "welcome_back_text" : "Psst!\nSi c'est ta première visite, clique sur le bouton d'inscription au dessus de ma tête!",
+  "welcome_text" : "Je suis super content de voir une nouvelle tête!\nEntre tes infos pour créer ton compte et commencer ton périple musical!",
+
+
+
+
+  "button_lets_go" : "C'est parti !",
+  "button_back" : "Retour",
+  "button_send" : "Envoyer",
+  "button_continue" : "Continuer",
+  "button_search" : "Rechercher",
+  "button_watch" : "Visionner",
+  "button_play" : "Jouer",
+
+  "send_button" : "Envoyer",
+  "login_button" : "Connexion",
+  "signin_button" : "Inscription",
+
+
+
+
+
+  "warning" : "Attention",
+  "error" : "Erreur",
+
+  "error_badformatted_email" : "L'adresse email n'est pas valide",
+  "error_badformatted_password" : "Longueur min: 8 / max : 20",
+  "error_badformatted_username" : "Longueur min: 3 / Lettres, chiffres, tirets",
+  
+  "error_not_enough_lives" : "Vous n'avez pas assez de vies !",
+
+  "error_painter_empty" : "Vous devez dessiner quelque chose",
+
+
+  "error_input_too_short_3" : "Minimum: 3 caractères",
+  "error_social_search_already_complete" : "Les résultats sont déjà affichés !",
+  "error_social_enter_search" : "Je ne peux pas deviner ce que vous cherchez !",
+  "error_social_no_result" : "Aucun résultat trouvé, désolé !",
+
+
+
+
+
+
+  "ask_change_language" : "Voulez-vous vraiment changer la langue de l'application?",
+  "reset_progression" : "Réinitialiser ma progression",
+  "ask_reset_progression" : "Voulez-vous vraiment réinitialiser votre progression ?\nCeci est irréversible...",
+  "ask_logout" : "Voulez-vous vraiment vous déconnecter ?",
+
+  "ask_quit_lesson" : "Voulez-vous vraiment quitter la leçon en cours ?\nVous ne récupérerez pas le coût en vie.",
+  "ask_quit_challenge" : "Voulez-vous vraiment quitter le défi en cours?\nVous ne récupérerez pas le coût en vie.",
+
+
+
+
+
+  "lives_full" : "Vos vies sont pleines !",
+  "next_life" : "Prochaine vie",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "tab_lessons" : "Leçons",
+  "tab_social" : "Social",
+  "tab_home" : "Accueil",
+  "tab_challenge" : "Défis",
+  "tab_profile" : "Profil",
+
+
+
+
+
+  "lessons" : "Leçons",
+
+  "lesson_category_notation" : "Notation musicale",
+  "lesson_category_eartraining" : "Travail de l'écoute",
+  "lesson_category_history" : "Histoire de la musique",
+  "lesson_category_analysis" : "Analyse",
+  "lesson_category_organology" : "Organologie",
+  "lesson_category_harmony" : "Écriture & Composition",
+
+  "lesson_category_description_notation" : "Apprenez comment lire et écrire des notes !",
+  "lesson_category_description_eartraining" : "Exercez vous à reconnaître les hauteurs de notes et les rythmes !",
+  "lesson_category_description_history" : "Découvrez l'évolution de la musique à travers les siècles !",
+  "lesson_category_description_analysis" : "Analysez les oeuvres afin de découvrir leurs petits secrets !",
+  "lesson_category_description_organology" : "Étudiez les instruments et choisissez celui qui vous correspond !",
+  "lesson_category_description_harmony" : "Entrez dans l'univers passionant et infini de l'harmonie",
+  
+  
+  "notation_subcategory_notes" : "Lecture de notes",
+  "notation_subcategory_rhythms" : "Rythmes",
+  "notation_subcategory_staff" : "Portée",
+  "notation_subcategory_signs" : "Autres signes",
+  
+  "eartraining_subcategory_registers" : "Registres et Timbres",
+  "eartraining_subcategory_intervals" : "Intervalles",
+  "eartraining_subcategory_chords" : "Accords",
+  "eartraining_subcategory_dictations" : "Dictées à trous",
+
+  "history_subcategory_periods" : "Grandes périodes",
+  "history_subcategory_composers" : "Compositeurs",
+  "history_subcategory_performers" : "Interprètes",
+  
+  "analysis_subcategory_forms" : "Formes musicales",
+  "analysis_subcategory_ensembles" : "Formations instrumentales",
+  
+  "organology_subcategory_families" : "Familles d'instruments",
+  "organology_subcategory_ancient" : "Instruments anciens",
+  "organology_subcategory_rare" : "Instruments rares",
+
+  "harmony_subcategory_harmony" : "Harmonie",
+  "harmony_subcategory_counterpoint" : "Contrepoint",
+  "harmony_subcategory_fugue" : "Fugue",
+  "harmony_subcategory_composition" : "Composition",
+
+
+
+  "generalities" : "Généralités",
+  "basics" : "Bases",
+
+  "Gkey2" : "Clé de Sol (2è ligne)",
+  "Fkey4" : "Clé de Fa (4è ligne)",
+  "Ckey3" : "Clé d'Ut (3è ligne)",
+  "Ckey4" : "Clé d'Ut (4è ligne)",
+
+  "binary" : "Rythmes Binaires",
+  "ternary" : "Rythmes Ternaires",
+  
+  "structure" : "Structure",
+  "staffhead" : "Tête de la portée",
+  "others" : "Autres",
+  
+  "dynamics" : "Nuances",
+  "articulations" : "Articulations",
+  
+
+
+  "small_intervals" : "Petits intervalles",
+  "big_intervals" : "Grands intervalles",
+  "giant_intervals" : "Intervalles au dessus de l'octave",
+
+  "3chords" : "Accords de 3 sons",
+  "4chords" : "Accords de 4 sons",
+  "complexchords" : "Accords complexes",
+
+  "dictations_intervals" : "Dictées d'intervalles",
+  "dictations_rhythms" : "Dictées de rythmes",
+  "dictations_chords" : "Dictées d'accords",
+
+
+  
+  "music_origins" : "Origines de la musique",
+  "middle_ages" : "Le Moyen Âge",
+  "renaissance" : "La Renaissance",
+  "baroque_period" : "L'époque Baroque",
+  "classical_period" : "L'époque Classique",
+  "romantic_period" : "Le courant Romantique",
+  "XXe_century" : "Le 20è siècle",
+  "music_today" : "La musique aujourd'hui",
+
+
+
+  "ancient_forms" : "Formes anciennes",
+  "baroque_forms" : "Formes baroques",
+  "classical_forms" : "Formes classiques",
+  "romantic_forms" : "Formes romantiques",
+  "modern_forms" : "Formes modernes",
+
+  "soloist" : "Le soliste",
+  "chamber_music" : "La musique de chambre",
+  "medium_ensemble" : "Les ensemble de moyenne taille",
+  "symphonic_orchestra" : "L'orchestre symphonique",
+  
+  
+  
+  "keyboards" : "Claviers",
+  "strings" : "Cordes",
+  "woodwinds" : "Bois",
+  "brass" : "Cuivres",
+  "percussions" : "Percussions",
+  "voices" : "Voix",
+
+  "antiquity" : "Antiquité",
+  "renaissance_baroque" : "Renaissance et Baroque",
+
+  "unusual_instruments" : "Instruments insolites",
+  "natural_instruments" : "Instruments naturels",
+
+
+
+  "4chords_more" : "Accords de 4 sons et plus",
+  "nonharmonic_tones" : "Notes étrangères",
+  "study_styles" : "Études des styles",
+
+
+
+
+  "difficulty1" : "Facile",
+  "difficulty2" : "Intermédiaire",
+  "difficulty3" : "Avancé",
+  "difficulty4" : "Difficile",
+
+  "description" : "Description",
+  "cost" : "Coût",
+  "start_lesson" : "Commencer la leçon",
+
+  "lessons_progression" : "Progression",
+
+  "lesson_finished" : "Leçon terminée !",
+  "lesson_reward" : "Récompense",
+  "lesson_reward_cost_bonus" : "Bonus de coût",
+  "lesson_reward_difficulty_bonus" : "Bonus de difficulté",
+  "lesson_reward_rewarded_ad_bonus" : "Bonus publicité",
+  "lesson_reward_total" : "Total",
+
+
+
+
+
+
+
+  "challenges_category_note_rush" : "Sprint de notes",
+  
+
+  "key_choice" : "Choix de la clef",
+  "time_choice" : "Choix du temps",
+
+
+  "Gkey" : "Clé de Sol",
+  "Fkey" : "Clé de Fa",
+  "Ckey3_small" : "Clé d'ut 3",
+  "Ckey4_small" : "Clé d'ut 4",
+
+
+
+
+
+
+
+
+  "social_search_username_or_email" : "Nom d'utilisateur ou e-mail",
+
+  "search" : "Recherche",
+
+
+
+
+
+
+
+
+  "profile_change_profile_picture" : "Modifier mon image de profil",
+  "profile_change_cover_picture" : "Modifier mon image de couverture",
+
+  "media_take_picture" : "Prendre une photo",
+  "media_from_camera" : "Depuis l'appareil photo",
+  "media_from_gallery" : "Depuis la galerie"
+}

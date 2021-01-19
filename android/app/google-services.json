@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "630220854704",
+    "firebase_url": "https://fabemol-29366.firebaseio.com",
+    "project_id": "fabemol-29366",
+    "storage_bucket": "fabemol-29366.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630220854704:android:ee5d5496342993fc787275",
+        "android_client_info": {
+          "package_name": "app.poisson.FaBemol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630220854704-rql7has4ool1p4hamu0o771ifrgp5rlq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC75-dFjCAaO8maS7ra9syVm2HbtR5RJrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630220854704-rql7has4ool1p4hamu0o771ifrgp5rlq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
