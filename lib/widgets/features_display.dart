@@ -3,6 +3,7 @@ import 'package:FaBemol/widgets/container_flat_design.dart';
 import 'package:FaBemol/widgets/language_picker.dart';
 import 'package:FaBemol/functions/localization.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -68,7 +69,7 @@ class FeaturesSwiper extends StatelessWidget {
           children: [
             Padding(
               // Le padding pour faire l'effet 3D (la card commence assez bas)
-              padding: const EdgeInsets.only(top: 160, bottom: 10, left: 10, right: 10),
+              padding: const EdgeInsets.only(top: 125, bottom: 10, left: 10, right: 10),
 
               // LA CARD ****************************************
               child: ContainerFlatDesign(
@@ -107,9 +108,7 @@ class FeaturesSwiper extends StatelessWidget {
                     ),
 
                     // POUR GARDER LA PAGINATION INTACTE*************
-                    SizedBox(
-                      height: 22,
-                    )
+                    SizedBox(height: 22)
                   ],
                 ),
               ),
@@ -119,11 +118,14 @@ class FeaturesSwiper extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  DATA.FEATURES[i]['image'],
-                  fit: BoxFit.fill,
-                  scale: (DATA.FEATURES[i]['scale'] != null) ? DATA.FEATURES[i]['scale'] : 1.15,
-                )
+                Transform.scale(
+                  scale: (DATA.FEATURES[i]['scale'] != null) ? DATA.FEATURES[i]['scale'] : 1,
+                  child: Image.asset(
+                    DATA.FEATURES[i]['image'],
+                    fit: BoxFit.fill,
+                    height: 180,
+                  ),
+                ),
               ],
             ),
           ],

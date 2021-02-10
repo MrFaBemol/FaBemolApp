@@ -9,6 +9,9 @@ import 'package:FaBemol/screens/lessons/lesson_overview_screen.dart';
 import 'package:FaBemol/screens/lessons/lesson_steps_screen.dart';
 import 'package:FaBemol/screens/load_and_redirect_screen.dart';
 import 'package:FaBemol/screens/social/any_user_profile_page_screen.dart';
+import 'package:FaBemol/data/data.dart';
+
+// Flutter
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,9 +34,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+  //print(DATA.LANGUAGES.keys.toList());
+
   await translator.init(
     localeDefault: LocalizationDefaultType.device,
-    languagesList: <String>['fr', 'en'],
+    languagesList: DATA.LANGUAGES.keys.toList(),
     assetsDirectory: 'assets/translations/',
   );
 

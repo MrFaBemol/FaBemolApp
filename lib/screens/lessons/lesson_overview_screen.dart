@@ -86,8 +86,8 @@ class _LessonOverviewScreenState extends State<LessonOverviewScreen> {
                     children: [
                       Hero(
                         tag: 'icon_$lessonId',
-                        child: Image.asset(
-                          'assets/icons/lessons/$lessonIcon',
+                        child: Image.network(
+                          lessonIcon,
                           height: 144,
                           fit: BoxFit.cover,
                         ),

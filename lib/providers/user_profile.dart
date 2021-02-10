@@ -182,7 +182,8 @@ class UserProfile with ChangeNotifier {
 
   // Renvoie le nombre de secondes avant la prochaine vie.
   int get timeToNextLife {
-    return (lives != null) ? lives['nextLifeTimestamp'] - Timestamp.now().seconds : 200000;
+    int now = Timestamp.now().seconds;
+    return (lives != null) ? lives['nextLifeTimestamp'] - now : 200000;
   }
 
   //Renvoie true si l'utilisateur a assez de vies
@@ -220,6 +221,7 @@ class UserProfile with ChangeNotifier {
   /// Calcule les vies à ajouter depuis la dernière connexion / mise à jour
   /// *********************************************
   Future<void> updateLives() async {
+    //print(timeToNextLife.toString() + 's restantes et vies actuelles : ' + livesCount.toString());
     // Si les vies sont pleines et si le temps est négatif, alors on a dépassé le timer
     if (!livesFull && timeToNextLife <= 0) {
       // On fait une copie des vies et du temps passé pour pas boucler direct dessus

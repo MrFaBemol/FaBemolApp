@@ -80,7 +80,7 @@ class LessonsStructure with ChangeNotifier {
           'chaptersOrder': category['chaptersOrder'],
         };
       });
-      //print(lessonsStructure.toString());
+      print(lessonsStructure.toString());
 
       notifyListeners();
       _isLoading = false;

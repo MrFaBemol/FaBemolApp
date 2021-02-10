@@ -149,7 +149,7 @@ class _AuthScreenState extends State<AuthScreen> {
       body: SafeArea(
         child: Column(children: [
           // ****************** LE LOGO //@todo: à créer !
-          Container(
+          /*Container(
             height: 130,
             child: Center(
               child: Text(
@@ -159,6 +159,11 @@ class _AuthScreenState extends State<AuthScreen> {
                     color: Theme.of(context).textTheme.headline5.color),
               ),
             ),
+          ),*/
+
+          Image.asset(
+            'assets/images/logotmp2.png',
+            height: 130,
           ),
 
           //******************** LE FORMULAIRE
@@ -211,7 +216,7 @@ class Logo extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(200),
         child: Image.asset(
-          'assets/images/logotmp.png',
+          'assets/images/logotmp2.png',
           height: 120,
         ),
       ),

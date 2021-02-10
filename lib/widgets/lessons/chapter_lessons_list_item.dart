@@ -20,11 +20,9 @@ class ChapterLessonsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // On récupère la liste des leçons
-    List<dynamic> lessonsList =
-        Provider.of<LessonsStructure>(context, listen: false)
-            .getLessonsFromChapter(this.catId, this.subCatId, this.chapterId);
+    List<dynamic> lessonsList = Provider.of<LessonsStructure>(context, listen: false).getLessonsFromChapter(this.catId, this.subCatId, this.chapterId);
     // S'il n'y a aucune leçon on n'affiche tout simplement rien
-    if (lessonsList.length == 0) return Container();
+    if (lessonsList == null || lessonsList.length == 0) return Container();
 
     // La liste de widgets qui s'affichera
     List<Widget> lessonsWidgets = [];
@@ -36,8 +34,13 @@ class ChapterLessonsList extends StatelessWidget {
         catId: catId,
       ));
       // Si ce n'est pas la dernière leçon du chapitre, on ajoute un divider
-      if (lessonsList.indexOf(lesson) < lessonsList.length-1){
-        lessonsWidgets.add(Divider(thickness: 1,color: Theme.of(context).shadowColor,),);
+      if (lessonsList.indexOf(lesson) < lessonsList.length - 1) {
+        lessonsWidgets.add(
+          Divider(
+            thickness: 1,
+            color: Theme.of(context).shadowColor,
+          ),
+        );
       }
     });
 
@@ -64,8 +67,6 @@ class ChapterLessonsList extends StatelessWidget {
             children: lessonsWidgets,
           ),
         )
-
-
       ],
     );
   }
@@ -83,16 +84,11 @@ class LessonTileItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String lessonId = lesson['id'];
-    final String lessonTitle =
-        (lesson['title'][translator.currentLanguage] != null)
-            ? lesson['title'][translator.currentLanguage]
-            : lesson['title']['en'];
+    final String lessonTitle = (lesson['title'][translator.currentLanguage] != null) ? lesson['title'][translator.currentLanguage] : lesson['title']['en'];
     final String lessonIcon = lesson['icon'];
     final int lessonDifficulty = lesson['difficulty'];
 
-
-    bool isCompleted = Provider.of<UserProfile>(context).hasCompletedLesson(
-        lessonId); // On listen au cas où la personne valide une leçon
+    bool isCompleted = Provider.of<UserProfile>(context).hasCompletedLesson(lessonId); // On listen au cas où la personne valide une leçon
 
     return Container(
       width: double.infinity,
@@ -103,20 +99,20 @@ class LessonTileItem extends StatelessWidget {
       child: InkWell(
         // Rends la tile interactive
         onTap: () {
-          Navigator.of(context).pushNamed(LessonOverviewScreen.routeName,
-              arguments: {'lesson': lesson, 'catId': catId});
+          Navigator.of(context).pushNamed(LessonOverviewScreen.routeName, arguments: {'lesson': lesson, 'catId': catId});
         },
         // La tile en question
         child: Row(
           children: [
-            //@todo: vérifier qu'on veut charger l'image depuis les assets (peut-être mieux a long terme depuis une url?)
             // L'image avec la transition Hero
             Hero(
               tag: 'icon_$lessonId',
-              child: Image.asset(
+              child: Image.network(lessonIcon),
+
+              /*Image.asset(
                 'assets/icons/lessons/$lessonIcon',
                 height: 65,
-              ),
+              ),*/
             ),
 
             SizedBox(width: 10),
@@ -141,10 +137,7 @@ class LessonTileItem extends StatelessWidget {
                     tag: 'difficulty_$lessonId',
                     child: Text(
                       'difficulty$lessonDifficulty'.tr().toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.bold),
                     ),
                   )
                 ],

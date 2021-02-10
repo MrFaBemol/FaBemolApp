@@ -89,7 +89,6 @@ class Lesson with ChangeNotifier {
     ));
   }
 
-
   /// ****************************************************************************************************************************************
   /// Récupère la leçon depuis la base de données
   /// *********************************************
@@ -97,12 +96,7 @@ class Lesson with ChangeNotifier {
     this.callback = () {};
     this.callbackCheck = true;
     try {
-      DocumentSnapshot lesson = await FirebaseFirestore.instance
-          .collection('categories')
-          .doc(catId)
-          .collection('lessons')
-          .doc(lessonId)
-          .get();
+      DocumentSnapshot lesson = await FirebaseFirestore.instance.collection('categories').doc(catId).collection('lessons').doc(lessonId).get();
 
       print('recup de la leçon');
 
@@ -116,12 +110,8 @@ class Lesson with ChangeNotifier {
 
         this.catId = catId;
         this.lessonId = lesson.id;
-        this.title = lessonData['title'][lang] != null
-            ? lessonData['title'][lang]
-            : lessonData['title'][defaultLang];
-        this.description = lessonData['description'][lang] != null
-            ? lessonData['description'][lang]
-            : lessonData['description'][defaultLang];
+        this.title = lessonData['title'][lang] != null ? lessonData['title'][lang] : lessonData['title'][defaultLang];
+        this.description = lessonData['description'][lang] != null ? lessonData['description'][lang] : lessonData['description'][defaultLang];
         this.icon = lessonData['icon'];
         this.difficulty = lessonData['difficulty'];
         this.cost = lessonData['cost'];
@@ -257,8 +247,12 @@ class Lesson with ChangeNotifier {
     List<dynamic> answers = media['answers'];
     // On parcourt les réponses de la DB
     answers.forEach((answer) {
-      Widget widget;
+      // Si on a rien de défini, autant ne pas afficher
+      if (answer['type'] == 'none' || answer['type'] == null) {
+        return;
+      }
 
+      Widget widget;
       if (answer['type'] == 'text') {
         // Si on a affaire à un texte
         // @todo: gérer plusieurs langues dans les cards (pas hyper urgent)
@@ -268,13 +262,11 @@ class Lesson with ChangeNotifier {
         );
       } else if (answer['type'] == 'assetImage') {
         // Si c'est une assetImage
-        widget = ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset('assets/images/lessons/' + answer['value'], fit: BoxFit.scaleDown, alignment: Alignment.center));
+        widget =
+            ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.asset('assets/images/lessons/' + answer['value'], fit: BoxFit.scaleDown, alignment: Alignment.center));
       } else {
         // SI c'est une image du network
-        widget = ClipRRect(
-            borderRadius: BorderRadius.circular(10), child: Image.network(answer['value'], fit: BoxFit.scaleDown, alignment: Alignment.center));
+        widget = ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.network(answer['value'], fit: BoxFit.scaleDown, alignment: Alignment.center));
       }
       // On a joute enfin le widget dans notre liste
       answersList.add({

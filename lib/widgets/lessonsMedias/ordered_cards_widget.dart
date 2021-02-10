@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:FaBemol/functions/localization.dart';
 
 class OrderedCardsWidget extends StatefulWidget {
 
@@ -28,7 +29,6 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
 
   @override
   void initState()  {
-    // TODO: implement initState
     super.initState();
     resetAnswers();
     generateAnswersMap(widget.answersWidget);
@@ -58,7 +58,7 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
       // S'il n'y a pas assez de bonnes réponses
       if (goodAnswers < answers.length){
         lessonProvider.setCallbackCheck(false);
-        lessonProvider.showSnackBar('Nombre de bonnes réponses : $goodAnswers / ' + answers.length.toString());   // @todo : faire la traduction
+        lessonProvider.showSnackBar('number_good_answers'.tr() + ' : $goodAnswers / ' + answers.length.toString());
       } else{
         lessonProvider.setCallbackCheck(true);
       }

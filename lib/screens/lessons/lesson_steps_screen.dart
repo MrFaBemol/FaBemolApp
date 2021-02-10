@@ -141,8 +141,7 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
                         // L'icone
                         Hero(
                           tag: 'icon_' + lessonProvider.lessonId,
-                          child: Image.asset(
-                              'assets/icons/lessons/' + lessonProvider.icon),
+                          child: Image.network(lessonProvider.icon),
                         ),
                         SizedBox(width: 5),
                       ],

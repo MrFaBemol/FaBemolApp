@@ -6,7 +6,7 @@ class DATA {
   /// *********************************************
   static const Map<String, Map<String, dynamic>> LANGUAGES = {
     'fr': {'native_name': 'Français'},
-    'en': {'native_name': 'English'},
+    /*'en': {'native_name': 'English'},*/
   };
   /// Ne pas oublier d'ajouter le fichier json et l'image du drapeau
 
@@ -33,7 +33,7 @@ class DATA {
       'image': 'assets/icons/240/podium.png',
       'title': 'features_swiper_title_challenge',
       'description': 'features_swiper_description_challenge',
-      'scale': 1.0,
+      'scale': 1.2,
     }
   ];
 

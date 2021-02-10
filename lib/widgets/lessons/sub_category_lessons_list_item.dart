@@ -11,12 +11,7 @@ class SubCategoryLessonsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> chaptersOrder =
-        Provider.of<LessonsStructure>(context, listen: false)
-            .getChaptersOrder(this.catId, this.subCatId);
-
-
-
+    List<String> chaptersOrder = Provider.of<LessonsStructure>(context, listen: false).getChaptersOrder(this.catId, this.subCatId);
 
     /*
     ...chaptersOrder.map((chapterId) {
