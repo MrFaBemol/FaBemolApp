@@ -75,7 +75,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
       this.timeIndex = args['timeIndex'];
       this.challengeId = args['challengeId'];
       this.isLoaded = true;
-      this.nbSeconds = DATA.CHALLENGE_TIMELIST[timeIndex]['time'];
+      this.nbSeconds = DATA.NOTE_RUSH_TIMELIST[timeIndex]['time'];
       this.secondsLeft = this.nbSeconds;
     });
   }
@@ -111,7 +111,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
     this.isNewPB = await userProfile.isNewPB(
       challengeId: 'note_rush',
       score: this.totalScore,
-      category: {'key': DATA.CHALLENGE_KEYSLIST[keyIndex]['name'], 'time': DATA.CHALLENGE_TIMELIST[timeIndex]['name']},
+      category: {'key': DATA.NOTE_RUSH_KEYSLIST[keyIndex]['name'], 'time': DATA.NOTE_RUSH_TIMELIST[timeIndex]['name']},
     );
 
 
@@ -119,7 +119,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
     Provider.of<Rankings>(context, listen: false).saveScore(
       challengeId: 'note_rush',
       score: this.totalScore,
-      category: {'key': DATA.CHALLENGE_KEYSLIST[keyIndex]['name'], 'time': DATA.CHALLENGE_TIMELIST[timeIndex]['name']},
+      category: {'key': DATA.NOTE_RUSH_KEYSLIST[keyIndex]['name'], 'time': DATA.NOTE_RUSH_TIMELIST[timeIndex]['name']},
       stats: newStats,
       username: userProfile.username,
       isNewPB: this.isNewPB,
@@ -150,8 +150,8 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
     NotesButtonsStaff staff = NotesButtonsStaff(
       // On envoie directement un objet ça évite trop d'arguments
       musicKey: MusicKey(
-        keyType: DATA.CHALLENGE_KEYSLIST[keyIndex]['type'],
-        line: DATA.CHALLENGE_KEYSLIST[keyIndex]['line'],
+        keyType: DATA.NOTE_RUSH_KEYSLIST[keyIndex]['type'],
+        line: DATA.NOTE_RUSH_KEYSLIST[keyIndex]['line'],
       ),
       notesQuantity: this.nbNotes,
       onFinish: finishStaff,

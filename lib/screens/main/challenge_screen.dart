@@ -1,6 +1,6 @@
 
-import 'package:FaBemol/widgets/challenge/challenge_category_card_item.dart';
 import 'package:FaBemol/data/data.dart';
+import 'package:FaBemol/widgets/challenge/note_rush_challenge_card.dart';
 import 'package:flutter/material.dart';
 
 class ChallengeScreen extends StatefulWidget {
@@ -16,7 +16,10 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
     return Center(
       child: Column(
         children: [
-          ...DATA.CHALLENGES_CATEGORIES.entries.map((cat) => ChallengeCategoryCard(cat.key, cat.value)),
+
+          NoteRushChallengeCard(),
+
+          // ...DATA.CHALLENGES_CATEGORIES.entries.map((cat) => ChallengeCategoryCard(cat.key, cat.value)),
         ],
       ),
     );

@@ -2,6 +2,7 @@
 import 'package:FaBemol/providers/user_profile.dart';
 import 'package:FaBemol/widgets/drawers/lessons_drawer.dart';
 import 'package:FaBemol/widgets/drawers/profile_drawer.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flashy_tab_bar/flashy_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:FaBemol/functions/localization.dart';
@@ -33,30 +34,36 @@ class _TabsScreenState extends State<TabsScreen> {
   // Liste des pages de l'interface principale :
   List<Map<String, dynamic>> _pages = [
     {
-      'icon': Icon(Icons.school),
+      //'icon': Icon(Icons.school),
+      'assetIcon' : 'assets/icons/96/profil-lessons.png',
       'title': 'tab_lessons'.tr(),
       'appbar': LessonsAppBar(),
       'drawer': LessonsDrawer(),
       'screen': LessonsScreen(),
     },
     {
-      'icon': Icon(Icons.emoji_events),
+      //'icon': Icon(Icons.emoji_events),
+      'assetIcon' : 'assets/icons/96/trophee.png',
       'title': 'tab_challenge'.tr(),
       'screen': ChallengeScreen()
     },
 
     {
-      'icon': Icon(Icons.home),
+      //'icon': Icon(Icons.home),
+      'assetIcon' : 'assets/icons/96/accueil.png',
       'title': 'tab_home'.tr(),
       'screen': HomeScreen(),
     },
     {
-      'icon': Icon(Icons.group),
+      //'icon': Icon(Icons.group),
+      'assetIcon' : 'assets/icons/96/social_group.png',
       'title': 'tab_social'.tr(),
       'screen': MeetScreen(),
     },
     {
-      'icon': Icon(Icons.account_circle),
+      //'icon': Icon(Icons.account_circle),
+      'profilePicture': true,
+      'assetIcon' : 'assets/icons/96/profile-picture.png',
       'title': 'tab_profile'.tr(),
       'appbar': ProfileAppBar(),
       'endDrawer': ProfileDrawer(),
@@ -116,12 +123,15 @@ class _TabsScreenState extends State<TabsScreen> {
         selectedIndex: _selectedIndex,
         showElevation: true,
         onItemSelected: _selectTab,
+        iconSize: 26,
         items: [
           ..._pages.map(
             (e) {
               return FlashyTabBarItem(
-                icon: e['icon'],
-                title: Text(e['title']),
+                //icon: e['icon'],
+                assetIcon: e['assetIcon'] != null ? e['assetIcon'] : null,
+                profilePicture: e['profilePicture'] != null && Provider.of<UserProfile>(context, listen: false).hasProfilePicture ? Provider.of<UserProfile>(context, listen: false).profilePicture : null ,
+                title: Text(e['title'], style: TextStyle(fontSize: 14), maxLines: 1,),
               );
             },
           )

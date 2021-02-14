@@ -67,7 +67,7 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
 
     // On génère les cards des clés
     List<Widget> keysChoices = [];
-    for (int i = 0; i < DATA.CHALLENGE_KEYSLIST.length; i++) {
+    for (int i = 0; i < DATA.NOTE_RUSH_KEYSLIST.length; i++) {
       keysChoices.add(KeyChoiceCard(
         index: i,
         callback: () {
@@ -81,7 +81,7 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
 
     // On génère les cards des times
     List<Widget> timesChoices = [];
-    for (int i = 0; i < DATA.CHALLENGE_TIMELIST.length; i++) {
+    for (int i = 0; i < DATA.NOTE_RUSH_TIMELIST.length; i++) {
       timesChoices.add(TimeChoiceCard(
         index: i,
         callback: () {
@@ -211,7 +211,7 @@ class KeyChoiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // la keyMap pour les infos (l'icone)
-    Map<String, dynamic> keyMap = DATA.CHALLENGE_KEYSLIST[index];
+    Map<String, dynamic> keyMap = DATA.NOTE_RUSH_KEYSLIST[index];
 
     return Expanded(
       flex: 1,
@@ -248,7 +248,7 @@ class TimeChoiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> timeMap = DATA.CHALLENGE_TIMELIST[index];
+    final Map<String, dynamic> timeMap = DATA.NOTE_RUSH_TIMELIST[index];
 
     return Expanded(
       flex: 1,

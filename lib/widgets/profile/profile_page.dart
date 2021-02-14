@@ -4,6 +4,7 @@ import 'package:FaBemol/data/data.dart';
 import 'package:FaBemol/providers/any_user_profile.dart';
 import 'package:FaBemol/providers/user_profile.dart';
 import 'package:FaBemol/widgets/profile/profile_edit_picture_button.dart';
+import 'package:FaBemol/widgets/profile/profile_tab_challenge.dart';
 import 'package:FaBemol/widgets/profile/profile_tab_lessons.dart';
 import 'package:FaBemol/widgets/profile/profile_tab_user_infos.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -167,8 +168,9 @@ class _ProfileTabsState extends State<ProfileTabs> {
     List<Widget> pagesList = [
       //ProfileGridTab(),
       //ProfileMusicTab(),
-      ProfileTabUserInfos(widget.userProfile),
+      //ProfileTabUserInfos(widget.userProfile),
       ProfileTabLessons(widget.userProfile),
+      ProfileTabChallenge(widget.userProfile),
     ];
     // On crée les onglets à partir des données
     List<Widget> profileTabs = DATA.PROFILE_TABS.map((tab) {

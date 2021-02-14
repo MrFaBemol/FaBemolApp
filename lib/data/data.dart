@@ -132,14 +132,14 @@ class DATA {
 
   // name : le nom de la traduction (challenge_key_ + name)
   // type et line : les infos pour la MusicKey
-  static const List<Map<String, dynamic>> CHALLENGE_KEYSLIST = [
+  static const List<Map<String, dynamic>> NOTE_RUSH_KEYSLIST = [
     {'name': 'G2', 'type': 'G', 'line': 2},
     {'name': 'F4', 'type': 'F', 'line': 4},
     {'name': 'C3', 'type': 'C', 'line': 3},
     {'name': 'C4', 'type': 'C', 'line': 4},
   ];
 
-  static const List<Map<String, dynamic>> CHALLENGE_TIMELIST = [
+  static const List<Map<String, dynamic>> NOTE_RUSH_TIMELIST = [
     {'name': '3min', 'time': 180, 'icon': 'timer-vert.png'},
     {'name': '1min', 'time': 60, 'icon': 'timer-jaune.png'},
     {'name': '30s', 'time': 30, 'icon': 'timer-rouge.png'},
@@ -151,8 +151,9 @@ class DATA {
   static const List<Map<String, dynamic>> PROFILE_TABS = [
     //{'name': 'posts', 'icon': 'assets/icons/96/profil-grille.png'},
     //{'name': 'music', 'icon': 'assets/icons/96/profil-musique.png'},
-    {'name': 'user_infos', 'icon': 'assets/icons/96/user-infos.png'},
-    {'name': 'lessons', 'icon': 'assets/icons/96/profil-lessons.png'}
+    //{'name': 'user_infos', 'icon': 'assets/icons/96/user-infos.png'},
+    {'name': 'lessons', 'icon': 'assets/icons/96/profil-lessons.png'},
+    {'name': 'challenge', 'icon': 'assets/icons/96/trophee.png'},
 
   ];
 }

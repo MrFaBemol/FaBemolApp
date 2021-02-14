@@ -26,9 +26,7 @@ class ProfileTabLessons extends StatelessWidget {
 
           // On parcourt les catégories stockées dans le fichier DATA
           // Il est donc impossible d'ajouter des catégories uniquement depuis la DB (voulu !)
-          ...DATA.LESSONS_CATEGORIES.entries.map((cat) =>
-              ProfileCategoryProgressionTile(
-                  cat.key, cat.value, this.userProfile)),
+          ...DATA.LESSONS_CATEGORIES.entries.map((cat) => ProfileCategoryProgressionTile(cat.key, cat.value, this.userProfile)),
         ],
       ),
     );
@@ -50,34 +48,24 @@ class ProfileCategoryProgressionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     // On récup les infos sur la catégorie
     // Le nombre total de leçons. Renvoie -1 Si la catégorie n'existe pas.
-    final int nbTotalLessons =
-        Provider.of<LessonsStructure>(context, listen: false)
-            .getNbLessons(this.catId);
+    final int nbTotalLessons = Provider.of<LessonsStructure>(context, listen: false).getNbLessons(this.catId);
 
-    // On return un text bateau si la catégorie n'existe pas, sinon on continue
-    if (nbTotalLessons < 0)
-      return Container(
-        child: Text('La catégorie $catId n\'existe pas dans la DB'),
-      );
+    // On return un text ou rien, si la catégorie n'existe pas ou est vide
+    if (nbTotalLessons < 0) return Container(child: Text('La catégorie $catId n\'existe pas dans la DB'));
+    if (nbTotalLessons == 0) return Container();
 
     // La quantité de leçons terminées par l'utilisateur
-    final int nbCompleteLessons =
-        this.userProfile.getCompletedLessonsByCategory(this.catId);
+    final int nbCompleteLessons = this.userProfile.getCompletedLessonsByCategory(this.catId);
 
     // On calcule la progression
-    final double progressionPercentage = (nbTotalLessons == 0)
-        ? 0
-        : nbCompleteLessons.toDouble() / nbTotalLessons.toDouble();
+    final double progressionPercentage = (nbTotalLessons == 0) ? 0 : nbCompleteLessons.toDouble() / nbTotalLessons.toDouble();
 
     return Column(
       children: [
         Row(
           children: [
             // L'icone
-            Image.asset(
-              this.category['icon'],
-              height: 35,
-            ),
+            Image.asset(this.category['icon'], height: 35),
             SizedBox(width: 5),
             // Le titre
             Expanded(
@@ -89,7 +77,10 @@ class ProfileCategoryProgressionTile extends StatelessWidget {
             ),
 
             SizedBox(width: 5),
-            LessonsCategoryProgression(progressionPercentage: progressionPercentage, color: this.category['color'],)
+            LessonsCategoryProgression(
+              progressionPercentage: progressionPercentage,
+              color: this.category['color'],
+            )
           ],
         ),
         Divider(thickness: 2),
