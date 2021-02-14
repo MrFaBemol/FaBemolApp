@@ -73,19 +73,25 @@ class LessonsStructure with ChangeNotifier {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((category) {
+        // On récupère les données dans une map
+        Map<String, dynamic> data = category.data();
+        // On enregistre dans la structure du provider
         lessonsStructure[category.id] = {
-          'nbLessons': category['nbLessons'],
-          'structure': category['structure'],
-          'subCategoriesOrder': category['subCategoriesOrder'],
-          'chaptersOrder': category['chaptersOrder'],
+          'nbLessons': data['nbLessons'],
+          'structure': data['structure'],
+          'subCategoriesOrder': data['subCategoriesOrder'],
+          'chaptersOrder': data['chaptersOrder'],
         };
       });
-      print(lessonsStructure.toString());
+      //print(lessonsStructure.toString());
 
       notifyListeners();
       _isLoading = false;
     });
   }
-//****************************   Fin de la fonction
+//****************************   Fin de la fonction de fetch
+
+
+
 
 }

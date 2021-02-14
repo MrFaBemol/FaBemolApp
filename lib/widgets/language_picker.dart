@@ -11,8 +11,9 @@ class LanguagePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return DropdownButton<String>(
-      value: translator.currentLanguage,
+      value: DATA.LANGUAGES.containsKey(translator.currentLanguage) ? translator.currentLanguage : DATA.DEFAULT_LANGUAGE,
       items: translator.langsList.map((value) {
         return new DropdownMenuItem<String>(
           value: value,

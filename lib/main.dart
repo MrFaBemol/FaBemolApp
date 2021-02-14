@@ -1,6 +1,7 @@
 import 'package:FaBemol/providers/ad_manager.dart';
 import 'package:FaBemol/providers/any_user_profile.dart';
 import 'package:FaBemol/providers/lesson.dart';
+import 'package:FaBemol/providers/rankings.dart';
 import 'package:FaBemol/providers/searchs.dart';
 import 'package:FaBemol/screens/challenge/note_rush_choice_screen.dart';
 import 'package:FaBemol/screens/challenge/note_rush_game_screen.dart';
@@ -35,6 +36,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   //print(DATA.LANGUAGES.keys.toList());
+  //print('lol : ' + LocalizationDefaultType.device.toString());
 
   await translator.init(
     localeDefault: LocalizationDefaultType.device,
@@ -67,6 +69,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (ctx) => Lesson()),
         ChangeNotifierProvider(create: (ctx) => Searchs()),
         ChangeNotifierProvider(create: (ctx) => AdManager()),
+        ChangeNotifierProvider(create: (ctx) => Rankings()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,
@@ -121,6 +124,8 @@ class _MyAppState extends State<MyApp> {
           textTheme: TextTheme(
             bodyText1: TextStyle(color: Colors.red),
             bodyText2: TextStyle(color: Color(0xFF253d5b), fontSize: 18),
+
+            // Titres
             headline4: TextStyle(
               fontFamily: 'Raleway',
               fontSize: 40,
@@ -138,7 +143,7 @@ class _MyAppState extends State<MyApp> {
             // TITRE DES CATEGORIES
             headline6: TextStyle(
               fontFamily: 'Raleway',
-              fontSize: 28,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Color(0xFF253d5b)
             ),

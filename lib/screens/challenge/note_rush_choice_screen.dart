@@ -1,4 +1,5 @@
 import 'package:FaBemol/data/data.dart';
+import 'package:FaBemol/data/models/musicKey.dart';
 import 'package:FaBemol/providers/user_profile.dart';
 import 'package:FaBemol/screens/challenge/note_rush_game_screen.dart';
 import 'package:FaBemol/widgets/appbars/challenge_appbar.dart';
@@ -76,6 +77,8 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
       ));
     }
 
+    //int keyPerLine = 2;
+
     // On génère les cards des times
     List<Widget> timesChoices = [];
     for (int i = 0; i < DATA.CHALLENGE_TIMELIST.length; i++) {
@@ -108,52 +111,51 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
                   // Le choix de la clé
                   ContainerFlatDesign(
                     margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Column(
                       children: [
-                        ChoiceTitle(text: 'key_choice'.tr() + ' :'),
+                        ChoiceTitle(text: 'key_choice'.tr() + ' '),
                         Row(children: keysChoices),
                         SizedBox(height: 10),
-                        ChoiceTitle(text: 'time_choice'.tr() + ' :'),
+                        ChoiceTitle(text: 'time_choice'.tr() + ' '),
                         Row(children: timesChoices),
-                        SizedBox(height: 10),
+                        SizedBox(height: 30),
+
+                        // Le coût en vie
+                        LifeCostText(lifeCost),
+
+                        //************************** Le bouton pour se lancer
+                        if (hasEnoughLives)
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 60, vertical: 5),
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              //@todo: créer un provider pour les challenges et gérer les données dedans
+                              onPressed: (this.keyChoice < 0 || this.timeChoice < 0)
+                                  ? null
+                                  : () {
+                                      // Lance le jeu
+                                      startGame(lifeCost, challengeId);
+                                    },
+                              child: Text(
+                                'button_lets_go'.tr(),
+                              ),
+                            ),
+                          ),
+
+                        if (!hasEnoughLives)
+                          Container(
+                            width: 200,
+                            margin: EdgeInsets.all(5),
+                            child: AutoSizeText(
+                              'error_not_enough_lives'.tr(),
+                              style: TextStyle(color: Theme.of(context).errorColor, fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                            ),
+                          ),
                       ],
                     ),
                   ),
-
-                  SizedBox(height: 20),
-                  // Le coût en vie
-                  LifeCostText(lifeCost),
-
-                  //************************** Le bouton pour se lancer
-                  if (hasEnoughLives)
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 60, vertical: 5),
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        //@todo: créer un provider pour les challenges et gérer les données dedans
-                        onPressed: (this.keyChoice < 0 || this.timeChoice < 0)
-                            ? null
-                            : () {
-                                // Lance le jeu
-                                startGame(lifeCost, challengeId);
-                              },
-                        child: Text(
-                          'button_lets_go'.tr(),
-                        ),
-                      ),
-                    ),
-
-                  if (!hasEnoughLives)
-                    Container(
-                      width: 200,
-                      margin: EdgeInsets.all(5),
-                      child: AutoSizeText(
-                        'error_not_enough_lives'.tr(),
-                        style: TextStyle(color: Theme.of(context).errorColor, fontWeight: FontWeight.bold),
-                        maxLines: 1,
-                      ),
-                    ),
                 ],
               ),
             ),
@@ -216,22 +218,18 @@ class KeyChoiceCard extends StatelessWidget {
       child: InkWell(
         onTap: callback,
         child: Container(
-          height: 80,
+          height: 120,
           margin: EdgeInsets.symmetric(horizontal: 10),
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
+            color: (isSelected) ? Theme.of(context).shadowColor.withOpacity(0.15) : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: (isSelected) ? Theme.of(context).accentColor.withOpacity(0.6) : Colors.transparent,
+              color: (isSelected) ? Theme.of(context).shadowColor : Colors.transparent,
               width: 2,
             ),
           ),
-          child: Column(
-            children: [
-              Expanded(child: Image.asset('assets/images/staff/keys/' + keyMap['type'] + '.png')),
-              //AutoSizeText(keyMap['name'], maxLines: 1, ),
-            ],
-          ),
+          child: MusicKey(keyType: keyMap['type'], line: keyMap['line']).renderAlone(),
         ),
       ),
     );
@@ -257,13 +255,14 @@ class TimeChoiceCard extends StatelessWidget {
       child: InkWell(
         onTap: callback,
         child: Container(
-          height: 80,
+          height: 110,
           margin: EdgeInsets.symmetric(horizontal: 10),
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
+            color: (isSelected) ? Theme.of(context).shadowColor.withOpacity(0.15) : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: (isSelected) ? Theme.of(context).accentColor.withOpacity(0.6) : Colors.transparent,
+              color: (isSelected) ? Theme.of(context).shadowColor : Colors.transparent,
               width: 2,
             ),
           ),

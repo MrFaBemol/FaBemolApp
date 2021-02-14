@@ -62,7 +62,7 @@ class MusicStaff {
         xOffsetDiff += (closeNotes) ? notes[i].width/2 : notes[i].width;
       }
     }
-
+    //print(this.scale);
     // Renvoie le widget final
     return Transform.scale(
       // L'échelle

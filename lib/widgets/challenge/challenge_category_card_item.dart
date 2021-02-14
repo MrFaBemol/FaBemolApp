@@ -1,8 +1,12 @@
+import 'package:FaBemol/providers/rankings.dart';
+import 'package:FaBemol/screens/social/any_user_profile_page_screen.dart';
 import 'package:FaBemol/widgets/container_flat_design.dart';
 import 'package:FaBemol/widgets/large_elevated_button.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:FaBemol/functions/localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChallengeCategoryCard extends StatelessWidget {
   final Map<String, dynamic> challenge;
@@ -56,18 +60,19 @@ class ChallengeCategoryCard extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Le titre et le podium
-
-                    Container(
-                      child: Column(
-                        children: [
-                          RankingScoreTile(rank: 1, name: 'Gautier', score: 456),
-                          RankingScoreTile(rank: 2, name: 'MrFaBemol', score: 347),
-                          RankingScoreTile(rank: 3, name: 'Gibouille', score: 321),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: AutoSizeText(
+                        'challenge_key_G2'.tr(),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                     ),
+                    RankingScoreTile(challengeId: this.challengeId, rank: 1, category: {'key': 'G2', 'time': '30s'}),
+                    RankingScoreTile(challengeId: this.challengeId, rank: 2, category: {'key': 'G2', 'time': '30s'}),
+                    RankingScoreTile(challengeId: this.challengeId, rank: 3, category: {'key': 'G2', 'time': '30s'}),
                   ],
                 ),
               ),
@@ -100,21 +105,39 @@ class ChallengeCategoryCard extends StatelessWidget {
 /// *********************************************
 class RankingScoreTile extends StatelessWidget {
   final int rank;
-  final String name;
-  final int score;
+  final String challengeId;
+  final dynamic category;
 
-  RankingScoreTile({this.rank = 1, this.name = ' --- ', this.score = 0});
+  RankingScoreTile({this.challengeId, this.rank = 1, this.category});
 
   @override
   Widget build(BuildContext context) {
+    // On récupère les infos du rang depuis le service
+    var user = Provider.of<Rankings>(context).getRankedUser(challengeId: this.challengeId, rank: this.rank, category: this.category);
+
+    // On retourne le Widget
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Image.asset('assets/icons/96/medaille$rank.png', width: 24),
         SizedBox(width: 5),
-        AutoSizeText(name, maxLines: 1),
+        InkWell(
+          // On met un event onTap uniquement s'il y a un utilisateur à afficher, et si ce n'est pas l'utilisateur actif (impossible de cliquer sur son propre nom)
+          onTap: user == null ||user['userId'] == FirebaseAuth.instance.currentUser.uid
+              ? null
+              : () {
+                  Navigator.of(context).pushNamed(AnyUserProfilePageScreen.routeName, arguments: {'userId': user['userId']});
+                },
+          child: AutoSizeText(
+            user != null ? user['username'] : '---',
+            maxLines: 1,
+          ),
+        ),
         Expanded(child: Container()),
-        AutoSizeText(score.toString(), maxLines: 1),
+        AutoSizeText(
+          user != null ? user['score'].toString() : '-',
+          maxLines: 1,
+        ),
       ],
     );
   }

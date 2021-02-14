@@ -19,10 +19,14 @@ class MusicKey {
     this.line = 0,
   });
 
-  double get width{
+  double get width {
     return getSize();
   }
 
+
+  /// *********************************************
+  /// Renvoie un widget qui affiche la clé sur un stack
+  /// *********************************************
   Widget render() {
     return Positioned(
       top: getYPosition(),
@@ -32,6 +36,26 @@ class MusicKey {
         width: getSize(),
         color: this.color,
       ),
+    );
+  }
+
+  /// *********************************************
+  /// Renvoie une image tout simple
+  /// *********************************************
+  Widget renderAlone({bool withStaff = true, double height = 90}) {
+    // On calcule le path de l'image
+    String path = 'assets/images/staff/keys/';
+    if (withStaff){
+      int linePath = (this.line == 0) ? DEFAULT_KEYLINES[this.keyType] : this.line;   // On check si la line est définie ou non
+      path += this.keyType + linePath.toString() + '_staff.png';
+    } else {
+      path += this.keyType + '.png';
+    }
+
+    return Image.asset(
+        path,
+        color: this.color,
+        height: height,
     );
   }
 
@@ -48,13 +72,9 @@ class MusicKey {
     double oneLineDifference = 12.3;
     // Calcul de la différence selon la ligne de la clé
     int nbLinesDifference = (this.line == 0) ? 0 : this.line - DEFAULT_KEYLINES[this.keyType];
-    if (this.keyType == 'G') return 35.5 - (oneLineDifference*nbLinesDifference.toDouble());
-    if (this.keyType == 'F') return 53.5 - (oneLineDifference*nbLinesDifference.toDouble());
-    if (this.keyType == 'C') return 52.4 - (oneLineDifference*nbLinesDifference.toDouble());
+    if (this.keyType == 'G') return 35.5 - (oneLineDifference * nbLinesDifference.toDouble());
+    if (this.keyType == 'F') return 53.5 - (oneLineDifference * nbLinesDifference.toDouble());
+    if (this.keyType == 'C') return 52.4 - (oneLineDifference * nbLinesDifference.toDouble());
     return 0.0;
   }
-
-
-
-
 }

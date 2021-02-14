@@ -4,6 +4,8 @@ class DATA {
   /// *********************************************
   /// Les langues possibles dans l'application
   /// *********************************************
+  ///
+  static const String DEFAULT_LANGUAGE = 'fr';
   static const Map<String, Map<String, dynamic>> LANGUAGES = {
     'fr': {'native_name': 'Français'},
     /*'en': {'native_name': 'English'},*/
@@ -112,6 +114,10 @@ class DATA {
   };
 
 
+  /// *********************************************
+  /// LES VIES
+  /// *********************************************
+  static const int BONUS_LIVES_REWARDED_AD = 5;
 
   /// *********************************************
   /// Les catégories des défis
@@ -124,11 +130,13 @@ class DATA {
     }
   };
 
+  // name : le nom de la traduction (challenge_key_ + name)
+  // type et line : les infos pour la MusicKey
   static const List<Map<String, dynamic>> CHALLENGE_KEYSLIST = [
-    {'name': 'Gkey', 'type': 'G', 'line': 2},
-    {'name': 'Fkey', 'type': 'F', 'line': 4},
-    {'name': 'Ckey3_small', 'type': 'C', 'line': 3},
-    {'name': 'Ckey4_small', 'type': 'C', 'line': 4},
+    {'name': 'G2', 'type': 'G', 'line': 2},
+    {'name': 'F4', 'type': 'F', 'line': 4},
+    {'name': 'C3', 'type': 'C', 'line': 3},
+    {'name': 'C4', 'type': 'C', 'line': 4},
   ];
 
   static const List<Map<String, dynamic>> CHALLENGE_TIMELIST = [

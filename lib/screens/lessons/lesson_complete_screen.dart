@@ -164,7 +164,7 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
                   Container(
                     width: 200,
                     child: ElevatedButton(
-                      // On active le bouton seulement si une vidéo est chargée et que l'utilisateur n'a pas encore lancé une vidéo pour avoir le bonus
+                      // On active le bouton seulement si l'utilisateur n'a pas encore lancé une vidéo pour avoir le bonus
                       onPressed: !rewardedAdWatched
                           ? () {
                               adManager.showRewardedAd();
@@ -194,7 +194,7 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
 
                 SizedBox(height: 20),
                 if (!rewardedAdWatched)
-                  AutoSizeText("Obtenez plus de récompenses en visionnant une courte publicité!\nEn plus, cela vous permet de soutenir l'enseignement gratuitement !", textAlign: TextAlign.center, style: TextStyle(fontSize: 14),),
+                  AutoSizeText('ad_rewarded_complete_lesson_label'.tr(), textAlign: TextAlign.center, style: TextStyle(fontSize: 14),),
                 if (rewardedAdWatched) AutoSizeText("Merci beaucoup !" , textAlign: TextAlign.center, style: TextStyle(fontSize: 14),),
               ],
             ),

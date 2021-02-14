@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:FaBemol/data/data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -17,6 +18,7 @@ class UserProfile with ChangeNotifier {
   String description;
   int color;
   int currencyBalance;
+  Map<String, dynamic> lives;
 
   String profilePicture;
   String coverPicture;
@@ -24,7 +26,8 @@ class UserProfile with ChangeNotifier {
   int nbSubscribers;
   int nbSubscriptions;
 
-  Map<String, dynamic> lives;
+  Map<String, dynamic> challengesPB;
+  Map<String, dynamic> challengesRecentStats;
 
   /*
   progression est tout simplement une map de type :
@@ -85,6 +88,10 @@ class UserProfile with ChangeNotifier {
         this.nbSubscribers = data['nbSubscribers'] != null ? data['nbSubscribers'] : 0;
         this.nbSubscriptions = data['nbSubscriptions'] != null ? data['nbSubscriptions'] : 0;
 
+        // Les infos des challenges
+        this.challengesPB = data['challengesPB'] != null ? data['challengesPB'] : {};
+        this.challengesRecentStats = data['challengesRecentStats'] != null ? data['challengesRecentStats'] : {};
+
         isLoaded = true;
       }
 
@@ -114,11 +121,7 @@ class UserProfile with ChangeNotifier {
     FirebaseAuth.instance.signOut();
   }
 
-
-
-
-
-  //***************************************************************************************************************************************** CURRENCY
+  //********************************************************************************************************************************************************************** CURRENCY
   //Renvoie true si l'utilisateur a assez de vies
   bool hasEnoughCurrency(int quantity) {
     return quantity <= this.currencyBalance;
@@ -163,8 +166,7 @@ class UserProfile with ChangeNotifier {
     }
   }
 
-
-  //******************************************************************************************************************************************** LIVES
+  //************************************************************************************************************************************************************************** LIVES
   // Renvoie le nombre de vies
   int get livesCount {
     return (lives != null) ? lives['count'] : 0;
@@ -196,7 +198,7 @@ class UserProfile with ChangeNotifier {
   ///**********************************************
   Future<void> useLives(int quantity) async {
     // Un ultime check pour voir s'il y a assez de vies (est déjà vérifié dans le widget qui appelle la fonction, mais on sait jamais)
-    if (!hasEnoughLives(quantity))return;
+    if (!hasEnoughLives(quantity)) return;
 
     try {
       // Si les vies sont pleines, il faut calculer le nouveau timestamp, sinon on garde l'ancien.
@@ -225,17 +227,17 @@ class UserProfile with ChangeNotifier {
     // Si les vies sont pleines et si le temps est négatif, alors on a dépassé le timer
     if (!livesFull && timeToNextLife <= 0) {
       // On fait une copie des vies et du temps passé pour pas boucler direct dessus
-      int newLives = lives['count'];
+      int newLives = livesCount;
       int overtime = timeToNextLife * -1; // Le nombre de secondes en mode positif
 
       // On s'arrête de boucler soit quand on arrive au nombre max de vies, soit quand on a fait assez de "modulo" du temps de récup des vies
-      while (newLives < lives['max'] && overtime > 0) {
+      while (newLives < livesMax && overtime > 0) {
         overtime -= lives['timer'];
         newLives++;
       }
 
-      // Si on est passé à 5 on s'en fout du timestamp, mais sinon on doit le calculer : now() + overtime*-1
-      int newNextLifeTimestamp = (newLives == 5) ? Timestamp.now().seconds : Timestamp.now().seconds + (overtime * -1);
+      // Si on est passé au max des vies on s'en fout du timestamp, mais sinon on doit le calculer : now() + overtime*-1
+      int newNextLifeTimestamp = (newLives == livesMax) ? Timestamp.now().seconds : Timestamp.now().seconds - overtime;
 
       try {
         await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
@@ -254,7 +256,139 @@ class UserProfile with ChangeNotifier {
     }
   }
 
-  /// **************************************************************************************************************************************** LESSONS
+  /// *********************************************
+  /// Ajoute des vies grâce à la pub ! (5 pour le moment)
+  /// *********************************************
+  Future<void> getLivesFromAd() async {
+    int nbLivesToAdd = DATA.BONUS_LIVES_REWARDED_AD;
+
+    // Si on dépasse le max de vies, on mets tout simplement le max ! Sinon on calcule le bon nombre
+    int newLives = livesCount + nbLivesToAdd > livesMax ? livesMax : livesCount + nbLivesToAdd;
+    // Si on a atteint le nombre max de vies, on s'en fout du timestamp, sinon on garde le même !
+    int newNextLifeTimestamp = (newLives == livesMax) ? Timestamp.now().seconds : lives['nextLifeTimestamp'];
+
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
+        'lives.count': newLives,
+        'lives.nextLifeTimestamp': newNextLifeTimestamp,
+      });
+      // On fait les changements en interne
+      lives['count'] = newLives;
+      lives['nextLifeTimestamp'] = newNextLifeTimestamp;
+      notifyListeners();
+    } catch (err) {
+      print('Erreur : Impossible de gagner des vies grâce à la pub :' + err.toString());
+    }
+  }
+
+  /// ******************************************************************************************************************************************************************* CHALLENGES
+
+  /// *********************************************
+  /// Vérifie si une stat existe déjà
+  /// *********************************************
+  bool statExists(String challengeId, String statName){
+    return (this.challengesRecentStats[challengeId] != null && this.challengesRecentStats[challengeId][statName] != null);
+  }
+
+
+  /// *********************************************
+  /// Renvoie la moyenne de la statistique sur les dernières parties enregistrées
+  /// *********************************************
+  double averageStat(String challengeId, String stat){
+    double result = -1;
+    var recentAccuracy = statExists(challengeId, stat) ? this.challengesRecentStats[challengeId][stat] : null ;
+    // Si on a pas de tableau sur lequel boucler, alors on fait rien et on retournera -1
+    if (recentAccuracy != null ){
+      result = 0;
+      for (int i = 0 ; i < recentAccuracy.length ; i++ ){
+        result += recentAccuracy[i];
+      }
+      result /= recentAccuracy.length;
+    }
+
+    return result;
+  }
+
+  /// *********************************************
+  /// Enregistre le nouveau score dans la collection Rankings
+  /// Les stats sont un objet de type 'statName'  : value
+  /// *********************************************
+  Future<void> saveStats(String challengeId, Map<String, dynamic> stats ) async{
+    // L'objet à balancer dans la DB
+    var dbObject = {};
+    // On boucle sur les stats passées en argument
+    stats.forEach((statName, value) {
+      // On récup les infos déjà enregistrées, si elles existent
+      List<dynamic> baseList = statExists(challengeId, statName) ? this.challengesRecentStats[challengeId][statName] : [];
+      // On ajoute la nouvelle valeur
+      baseList.add(value);
+      // Si on a plus que 10 valeurs, alors on enlève la plus ancienne
+      if (baseList.length > 10){baseList.removeAt(0);}
+      // On rajoute la liste à l'objet à balancer dans la DB
+      dbObject[statName] = baseList;
+    });
+
+    try{
+      // On envoie les stats de ce challenge
+      await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
+        'challengesRecentStats.'+challengeId: dbObject
+      });
+      // Changement en interne
+      this.challengesRecentStats[challengeId] = dbObject;
+      notifyListeners();
+    } catch (e){
+      print('Erreur lors de la sauvegarde des statistiques : ' + e.toString());
+    }
+  }
+
+
+  /// *********************************************
+  /// Enregistre le score comme un nouveau record perso si besoin
+  /// Renvoie true si c'est le cas.
+  /// *********************************************
+  Future<bool> isNewPB({String challengeId, int score, dynamic category}) async {
+    // La variable qui va être utilisée pour calculer le path dans le tableau des scores.
+    String scorePath = challengeId;
+
+    switch (challengeId) {
+      /// *********************************************
+      /// Dans le cas des note_rush il faut que category soit un objet avec les propriétés key et time (G2 / 1min par exemple)
+      /// *********************************************
+      case 'note_rush':
+        if (category == null || category['key'] == null || category['time'] == null) return false;
+        // Calcul du path
+        scorePath += '_' + category['key'] + '_' + category['time'];
+        break;
+
+      default:
+        return false;
+    }
+    // Si le score est encore indéfini ou est un nouveau record
+    if (this.challengesPB[scorePath] == null || this.challengesPB[scorePath] < score){
+      try{
+        await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).update({
+          'challengesPB.'+scorePath: score
+        });
+        this.challengesPB[scorePath] = score;
+        notifyListeners();
+        return true;
+      } catch(e){
+        print('Erreur lors de la sauvegarde du nouveau record : ' + e.toString());
+      }
+    }
+    return false;
+  }
+
+
+
+
+
+
+
+
+
+
+  /// ********************************************************************************************************************************************************************** LESSONS
   /// Renvoie le nombre de leçons terminées au total
   /// *********************************************
   int getCompletedLessons() {
@@ -334,7 +468,7 @@ class UserProfile with ChangeNotifier {
     }
   }
 
-  /// ****************************************************************************************************************************  PROFILE PICTURE
+  /// ***********************************************************************************************************************************************************  PROFILE PICTURE
   /// Change une image du profil (soit l'avatar, soit la couverture)
   /// *********************************************
   Future<void> changePicture(File file, String pictureType) async {
@@ -388,7 +522,6 @@ class UserProfile with ChangeNotifier {
       // à l'envers
       searchSubstrings.add(username.substring(username.length - i, username.length));
     }
-
     //print(searchSubstrings);
     return searchSubstrings;
   }

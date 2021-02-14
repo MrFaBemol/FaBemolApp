@@ -52,8 +52,17 @@ class NotesButtonsCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*592.0
+    360.0
 
-    double radius = 100;
+    683
+     411
+    */
+    // MediaQuery.of(context).size.height/ 8.7
+
+    // Un semblant de calcul en proportion pour les petits écrans...
+    double addedRadius = (MediaQuery.of(context).size.height - 592) / 3;
+    double radius = 70 + addedRadius;
     double moreMargin = radius * 0.70;
 
     return Container(

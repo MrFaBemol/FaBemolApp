@@ -76,15 +76,20 @@ class EditPictureBottomSheet extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 10),
             child: Column(
               children: [
-                Image.asset('assets/icons/96/profile-picture.png', height: 40),
-                SizedBox(height: 10),
-                AutoSizeText(
-                  'profile_change_profile_picture'.tr(),
-                  maxLines: 1,
-                  style: Theme.of(context).textTheme.headline6,
+                Row(
+                  children: [
+                    Image.asset('assets/icons/96/profile-picture.png', height: 25),
+                    SizedBox(width: 3),
+                    Expanded(
+                      child: AutoSizeText(
+                        'profile_change_profile_picture'.tr(),
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                  ],
                 ),
                 Divider(color: Theme.of(context).shadowColor,),
-                SizedBox(height: 15),
 
                 //*** Les choix pour changer l'image
                 Row(
@@ -148,15 +153,19 @@ class EditPictureBottomSheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               children: [
-                Image.asset('assets/icons/96/cover-picture.png', height: 50),
-                SizedBox(height: 10),
-                AutoSizeText(
-                  'profile_change_cover_picture'.tr(),
-                  maxLines: 1,
-                  style: Theme.of(context).textTheme.headline6,
+                Row(
+                  children: [
+                    Image.asset('assets/icons/96/cover-picture.png', height: 30),
+                    Expanded(
+                      child: AutoSizeText(
+                        'profile_change_cover_picture'.tr(),
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                  ],
                 ),
                 Divider(color: Theme.of(context).shadowColor,),
-                SizedBox(height: 15),
 
                 //*** Les choix pour changer l'image
                 Row(

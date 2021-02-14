@@ -40,7 +40,7 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
       key: widget.musicKey,
       scale: 1,
       closeNotes: true,
-      //bgColor: Colors.white
+      //bgColor: Colors.red[100]
     );
     // On récup le nom des notes
     this.staff.generateNotesNames();
@@ -55,7 +55,7 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
     return Column(
       children: [
         this.staff.render(),
-        SizedBox(height: 10),
+        // SizedBox(height: 0),
         NotesButtons(widget.layout, addAnswer),
       ],
     );

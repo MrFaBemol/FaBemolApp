@@ -145,6 +145,10 @@ class _AuthScreenState extends State<AuthScreen> {
   //******************* LE BUILD
   @override
   Widget build(BuildContext context) {
+
+    /*print(MediaQuery.of(context).size.height);
+    print(MediaQuery.of(context).size.width);*/
+
     return Scaffold(
       body: SafeArea(
         child: Column(children: [

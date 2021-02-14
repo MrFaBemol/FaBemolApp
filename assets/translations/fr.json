@@ -100,6 +100,10 @@
 
 
 
+  "ad_rewarded_complete_lesson_label" : "Obtenez plus de récompenses en visionnant une courte publicité!\nEn plus, vous faites une bonne action en soutenant l'enseignement gratuit!",
+  "ad_rewarded_get_lives_label" : "Obtenez jusqu'à 5 vies supplémentaires en visionnant une courte publicité!",
+
+
 
 
 
@@ -117,7 +121,7 @@
   "lessons" : "Leçons",
 
   "lesson_category_notation" : "Notation musicale",
-  "lesson_category_eartraining" : "Travail de l'écoute",
+  "lesson_category_eartraining" : "Écoute & Théorie",
   "lesson_category_history" : "Histoire de la musique",
   "lesson_category_analysis" : "Analyse",
   "lesson_category_organology" : "Organologie",
@@ -270,10 +274,10 @@
   "time_choice" : "Choix du temps",
 
 
-  "Gkey" : "Clé de Sol",
-  "Fkey" : "Clé de Fa",
-  "Ckey3_small" : "Clé d'ut 3",
-  "Ckey4_small" : "Clé d'ut 4",
+  "challenge_key_G2" : "Clé de Sol",
+  "challenge_key_F4" : "Clé de Fa",
+  "challenge_key_C3" : "Clé d'ut 3",
+  "challenge_key_C4" : "Clé d'ut 4",
 
 
 
@@ -293,10 +297,10 @@
 
 
 
-  "profile_change_profile_picture" : "Modifier mon image de profil",
-  "profile_change_cover_picture" : "Modifier mon image de couverture",
+  "profile_change_profile_picture" : "Photo de profil",
+  "profile_change_cover_picture" : "Photo de couverture",
 
-  "media_take_picture" : "Prendre une photo",
+  "media_take_picture" : "Nouvelle photo",
   "media_from_camera" : "Depuis l'appareil photo",
-  "media_from_gallery" : "Depuis la galerie"
+  "media_from_gallery" : "Galerie"
 }

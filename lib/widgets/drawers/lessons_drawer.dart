@@ -28,7 +28,6 @@ class _LessonsDrawerState extends State<LessonsDrawer> {
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     print('dispose');
     super.dispose();
   }
@@ -36,8 +35,8 @@ class _LessonsDrawerState extends State<LessonsDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    var adManager = Provider.of<AdManager>(context);
-
+    AdManager adManager = Provider.of<AdManager>(context);
+    // print('charged ou not ? : ' + adManager.rewardedVideoAdLoaded.toString());
     return Drawer(
       child: SafeArea(
         child: Center(
@@ -46,11 +45,9 @@ class _LessonsDrawerState extends State<LessonsDrawer> {
               Text('Drawer de gôche', style: TextStyle(fontSize: 32)),
               Text('Nombre de coins : ' + _coins.toString()),
               ElevatedButton(
-                onPressed: adManager.rewardedVideoAdLoaded
-                    ? () {
-                        adManager.showRewardedAd();
-                      }
-                    : null,
+                onPressed: () {
+                  adManager.showRewardedAd();
+                },
                 child: adManager.rewardedVideoAdLoaded ? Text('Lancer la vidéo') : Text('Chargement...'),
               ),
             ],

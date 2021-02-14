@@ -93,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
               userProfile.username,
               style: Theme.of(context)
                   .textTheme
-                  .headline4
+                  .headline5
                   .copyWith(color: Theme.of(context).primaryColor),
               maxLines: 1,
             ),
