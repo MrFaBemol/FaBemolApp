@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class ContainerFlatDesign extends StatelessWidget {
 
+  final Color bgColor;
+
   final Color borderColor;
   final BorderRadiusGeometry borderRadius;
   final double borderWidth;
@@ -13,6 +15,9 @@ class ContainerFlatDesign extends StatelessWidget {
   final Widget child;
 
   ContainerFlatDesign({
+
+    this.bgColor,
+
     this.borderColor,
     this.borderRadius,
     this.borderWidth = 1,
@@ -31,13 +36,16 @@ class ContainerFlatDesign extends StatelessWidget {
         margin: this.margin != null ? this.margin : EdgeInsets.all(0),
         padding: this.padding != null ? this.padding : EdgeInsets.all(0),
         width: (this.screenWidth) ? MediaQuery.of(context).size.width : double.infinity,
+        //alignment: Alignment.center,
+
+
 
         // On donne le flat design
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: this.bgColor != null ? this.bgColor : Theme.of(context).backgroundColor,
           borderRadius: this.borderRadius != null ? this.borderRadius : BorderRadius.circular(5),
           border: Border.all(
-            color: Theme.of(context).shadowColor,
+            color: this.borderColor != null ? this.borderColor : Theme.of(context).shadowColor,
             width: this.borderWidth,
           ),
 

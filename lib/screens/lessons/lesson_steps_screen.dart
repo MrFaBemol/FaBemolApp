@@ -85,21 +85,16 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
 
     // Le nombre d'étapes de la leçon et le pourcentage de la progression
     int numberOfSteps = lessonProvider.numberOfSteps;
-    double progressionPercentage =
-        currentStep.toDouble() / numberOfSteps.toDouble();
+    double progressionPercentage = currentStep.toDouble() / numberOfSteps.toDouble();
 
     // On récupère le contenu à afficher
     String currentStepText = lessonProvider.getStepText(currentStep);
     Widget currentStepDisplay = lessonProvider.getStepDisplay(currentStep);
-    Map<String, String> currentStepAudio =
-        lessonProvider.getStepAudio(currentStep);
+    Map<String, String> currentStepAudio = lessonProvider.getStepAudio(currentStep);
 
     // Et on définit les actions des flèches
-    Function leftArrowAction =
-        currentStep > 1 ? () => previousStep(lessonProvider) : null;
-    Function rightArrowAction = currentStep < numberOfSteps
-        ? () => nextStep(lessonProvider)
-        : () => finishLesson(lessonProvider);
+    Function leftArrowAction = currentStep > 1 ? () => previousStep(lessonProvider) : null;
+    Function rightArrowAction = currentStep < numberOfSteps ? () => nextStep(lessonProvider) : () => finishLesson(lessonProvider);
 
     return WillPopScope(
       onWillPop: _askConfirmationToQuit,
@@ -114,39 +109,39 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
               children: [
                 // La barre du haut *********************************************************************************
                 Container(
-                    height: 40,
-                    width: double.infinity,
-                    color: Theme.of(context).backgroundColor,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Le bouton pour quitter la leçon
-                        IconButton(
-                          icon: Icon(Icons.clear),
-                          color: Theme.of(context).accentColor,
-                          onPressed: _askConfirmationToQuit,
-                        ),
-                        // Le titre
-                        Expanded(
-                          child: Hero(
-                            tag: 'title_' + lessonProvider.lessonId,
-                            child: AutoSizeText(
-                              lessonProvider.title,
-                              style: Theme.of(context).textTheme.headline6,
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                            ),
+                  height: 40,
+                  width: double.infinity,
+                  color: Theme.of(context).backgroundColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Le bouton pour quitter la leçon
+                      IconButton(
+                        icon: Icon(Icons.clear),
+                        color: Theme.of(context).accentColor,
+                        onPressed: _askConfirmationToQuit,
+                      ),
+                      // Le titre
+                      Expanded(
+                        child: Hero(
+                          tag: 'title_' + lessonProvider.lessonId,
+                          child: AutoSizeText(
+                            lessonProvider.title,
+                            style: Theme.of(context).textTheme.headline6,
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        // L'icone
-                        Hero(
-                          tag: 'icon_' + lessonProvider.lessonId,
-                          child: Image.network(lessonProvider.icon),
-                        ),
-                        SizedBox(width: 5),
-                      ],
-                    ),
+                      ),
+                      // L'icone
+                      Hero(
+                        tag: 'icon_' + lessonProvider.lessonId,
+                        child: Image.network(lessonProvider.icon),
+                      ),
+                      SizedBox(width: 5),
+                    ],
                   ),
+                ),
 
                 // Le display   ****************************************************************************
                 Expanded(
@@ -162,6 +157,19 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
                   ),
                 ),
 
+                /*
+                ContainerFlatDesign(
+                    bgColor: Colors.blue[200],
+                    borderColor: Colors.red,
+                    padding: EdgeInsets.only(bottom: 0),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                    child: currentStepDisplay,
+                  )
+                 */
+
                 // L'audio *********************************************************************************
                 if (currentStepAudio != null) AudioPlayer(),
 
@@ -176,8 +184,7 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Text(
-                        'Je me répète mais :\n ' +
-                            ((currentStepText + '\n') * 10),
+                        'Je me répète mais :\n ' + ((currentStepText + '\n') * 10),
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.center,
                       ),
@@ -188,8 +195,7 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
                 // La navigation *********************************************************************************
                 LinearProgressIndicator(
                   value: progressionPercentage,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).accentColor),
+                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
                   backgroundColor: Colors.grey[200],
                 ),
                 Container(
@@ -262,8 +268,7 @@ class ChangeStepArrow extends StatelessWidget {
         'assets/icons/96/fleche-$direction.png',
         height: 40,
         // Grisée si inactive
-        color:
-            (arrowAction != null) ? Theme.of(context).accentColor : Colors.grey,
+        color: (arrowAction != null) ? Theme.of(context).accentColor : Colors.grey,
       ),
     );
   }

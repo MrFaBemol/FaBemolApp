@@ -6,7 +6,6 @@ import 'package:FaBemol/providers/user_profile.dart';
 import 'package:FaBemol/widgets/profile/profile_edit_picture_button.dart';
 import 'package:FaBemol/widgets/profile/profile_tab_challenge.dart';
 import 'package:FaBemol/widgets/profile/profile_tab_lessons.dart';
-import 'package:FaBemol/widgets/profile/profile_tab_user_infos.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -101,8 +100,8 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: 10),
 
             //********** Les abonnés / abonnements
-            SocialNumbers(this.userProfile),
-            SizedBox(height: 20),
+            //SocialNumbers(this.userProfile),
+            //SizedBox(height: 20),
 
             //********** La description
             Text(

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:FaBemol/data/models/musicKey.dart';
 import 'package:FaBemol/data/models/musicNote.dart';
 import 'package:FaBemol/data/models/musicStaff.dart';
-import 'package:FaBemol/widgets/notes_buttons_layouts.dart';
+import 'package:FaBemol/widgets/staves/notes_buttons_layouts.dart';
 import 'package:flutter/material.dart';
 
 /// *********************************************
@@ -26,6 +26,8 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
   MusicStaff staff;
   List<MusicNote> notes;
 
+
+
   int answerIndex = 0;
   int goodAnswers = 0;
 
@@ -44,22 +46,33 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
     );
     // On récup le nom des notes
     this.staff.generateNotesNames();
+
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+
+  /// *********************************************
+  /// BUILD
+  /// *********************************************
+  @override
   Widget build(BuildContext context) {
+    // On colore la note en cours avec du bleu
     this.notes[answerIndex].setColor(Colors.lightBlueAccent);
 
-    //return this.staff.render();
 
     return Column(
       children: [
         this.staff.render(),
-        // SizedBox(height: 0),
-        NotesButtons(widget.layout, addAnswer),
+        NotesButtons(widget.layout, addAnswer)
       ],
     );
   }
+
+
 
 
   /// *********************************************
@@ -68,6 +81,7 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
   void addAnswer(String answer) {
     // On check la réponse et on l'enregistre
     bool isCorrect = this.staff.notesNames[answerIndex] == answer;
+    //this.staff.playNote(isCorrect: isCorrect);
     // On l'envoie au widget parent (le screen du jeu) via le callback onclick
     widget.onClick(isCorrect);
     setState(() {
@@ -75,6 +89,8 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
       // On met à jour la note avec la bonne couleur selon la réponse
       this.notes[answerIndex].setColor(isCorrect ? Colors.green : Colors.red);
       this.notes[answerIndex].setOpacity(0.3);
+      // On joue la note
+      this.notes[answerIndex].play(isCorrect: isCorrect);
       this.answerIndex++;
 
       // Si toutes les notes actuelles sont passées, on envoie le nombre de bonnes réponses de la série

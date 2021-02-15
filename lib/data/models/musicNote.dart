@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class MusicNote {
   static const double STANDARD_WIDTH = 15.2;
@@ -12,6 +13,10 @@ class MusicNote {
   Color stemColor;
   double opacity;
 
+  // Gestion du player de la note
+  String soundPath;
+  AudioPlayer player;
+
   MusicNote({
     this.height = 3,
     this.duration = 4,
@@ -21,6 +26,7 @@ class MusicNote {
     this.opacity = 1,
   });
 
+  // Les Widget à afficher sur la note
   Widget headWidget = Container();
   Widget stemWidget = Container();
   List<Widget> additionalLines = [];
@@ -72,6 +78,33 @@ class MusicNote {
       return noteWidget;
     }
   }
+
+
+  /// *********************************************
+  /// Fonctions pour l'AUDIO
+  /// *********************************************
+  void setSoundPath({String path, String instrument = 'piano'}) async {
+    this.soundPath = 'assets/sounds/notes/'+ instrument+'/' + path + '.mp3';
+    this.player = new AudioPlayer();
+
+    try{
+      await this.player.setAsset(this.soundPath);
+    } catch(e){
+      print('erreur de load : ' + e.toString());
+    }
+  }
+
+  void play({bool isCorrect}) async {
+    try {
+      await this.player.play();
+      this.player.dispose();
+    } catch (e) {
+      print('erreur de play : ' + e.toString());
+    }
+  }
+
+
+
 
   /// *********************************************
   /// Renvoie la position Y en fonction de la hauteur de la note sur la portée

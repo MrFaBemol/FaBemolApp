@@ -85,8 +85,8 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
     setState(() {
       this.resultsLoaded = false;
       this.timerStarted = false;
-      this.accuracy = (this.totalGoodAnswers / this.totalAnswers) * 100;
-      this.speed = this.nbSeconds / this.totalAnswers;
+      this.accuracy = this.totalAnswers > 0 ? (this.totalGoodAnswers / this.totalAnswers) * 100 : 0;
+      this.speed =  this.totalAnswers > 0 ?  this.nbSeconds / this.totalAnswers : this.nbSeconds.toDouble();
     });
     saveScoreToDatabase();
   }
@@ -227,9 +227,9 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                         children: [
                                           Image.asset('assets/icons/96/croches.png', height: 30),
                                           SizedBox(width: 5),
-                                          AutoSizeText('Série ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), maxLines: 1),
+                                          AutoSizeText('Série ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18), maxLines: 1),
                                           Expanded(child: Container()),
-                                          AutoSizeText(this.notesInARow.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), maxLines: 1),
+                                          AutoSizeText(this.notesInARow.toString(), style: TextStyle( fontSize: 22), maxLines: 1),
                                         ],
                                       ),
                                     ),
@@ -241,9 +241,9 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                         children: [
                                           Image.asset('assets/icons/96/trefle.png', height: 30),
                                           SizedBox(width: 5),
-                                          AutoSizeText('Combo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), maxLines: 1),
+                                          AutoSizeText('Combo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18), maxLines: 1),
                                           Expanded(child: Container()),
-                                          AutoSizeText('x' + this.comboFactor.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22), maxLines: 1),
+                                          AutoSizeText('x' + this.comboFactor.toString(), style: TextStyle(fontSize: 22), maxLines: 1),
                                         ],
                                       ),
                                     ),
@@ -271,6 +271,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                               Expanded(child: Container()),
                               // La portée :
                               staff,
+
                             ],
                           ),
                         ),

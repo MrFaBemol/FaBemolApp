@@ -39,6 +39,7 @@ dependencies:
   auto_size_text: ^2.1.0
 
   painter: ^0.4.0
+  just_audio: ^0.6.12
 
   flashy_tab_bar: ^0.0.3
   tab_indicator_styler: ^1.0.0
@@ -80,6 +81,7 @@ flutter:
     - assets/icons/flags/
     - assets/sounds/
     - assets/sounds/effects/
+    - assets/sounds/notes/piano/
     - assets/music/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

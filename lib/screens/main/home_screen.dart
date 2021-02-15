@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -9,11 +10,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  AudioPlayer player;
+
+  playNote() async {
+    this.player.play().then((value) {
+      this.player.pause();
+      this.player.seek(Duration.zero);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.player = new AudioPlayer();
+    loadFiles();
+  }
+
+
+  void loadFiles() async{
+    var duration = await this.player.setAsset('assets/sounds/notes/piano/A4.mp3');
+    print(duration);
+  }
+
   @override
   Widget build(BuildContext context) {
-    //MusicStaff staff = MusicStaff(key: );
-
-    //Provider.of<UserProfile>(context, listen: false).isNewPB(challengeId: 'note_rush', score: 8, category: {'key': 'G2', 'time': '30s'});
 
     return Center(
       child: Column(
@@ -27,6 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
           Text(
             'On va bien trouver quelque chose à afficher par ici ',
             textAlign: TextAlign.justify,
+          ),
+          ElevatedButton(
+            onPressed: playNote,
+            child: Text('jouer le son'),
           ),
         ],
       ),

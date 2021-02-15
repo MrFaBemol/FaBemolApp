@@ -7,6 +7,12 @@ class MusicKey {
     'F': 4,
     'C': 3,
   };
+  // Les lignes de clé par défaut
+  static const Map<String, int> DEFAULT_OCTAVE_SOUND = {
+    'G': 3,
+    'F': 2,
+    'C': 3,
+  };
 
   // Les variables de la clé
   final String keyType;

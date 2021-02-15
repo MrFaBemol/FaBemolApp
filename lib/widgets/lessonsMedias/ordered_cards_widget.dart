@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:FaBemol/functions/localization.dart';
 
 class OrderedCardsWidget extends StatefulWidget {
-
   final List<dynamic> answersWidget;
 
   OrderedCardsWidget({this.answersWidget});
@@ -17,24 +16,25 @@ class OrderedCardsWidget extends StatefulWidget {
 }
 
 class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
-
   // Le tableau pour enregistrer les réponses
   Map<int, int> answers = {};
+
   // Les draggable générés qu'on garde dans un coin
   Map<int, Widget> answersCardsMap = {};
+
   // Les dragtarget générés qu'on garde dans un coin
   Map<int, Widget> answersTargetMap = {};
+
   // L'ordre des question qui va se faire shuffle au début (et du coup on garde la map bien ordonnée)
   List<int> answersList = [];
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
-    resetAnswers();
+    resetAnswers(reload: false);
     generateAnswersMap(widget.answersWidget);
     generateAnswersTargetMap();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,14 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
     List<Widget> answersCardsWidget = generateCardsWidgets();
     List<Widget> answersTargetWidget = generateTargetWidgets();
 
+    //print(answers.toString() + ' => ' + answersList.toString());
 
     // Toute la partie provider et callback.
     Lesson lessonProvider = Provider.of<Lesson>(context, listen: false);
 
     //print(answers);
     // On crée la fonction de callback
-    Function callback = (){
+    Function callback = () {
       int goodAnswers = 0;
 
       answers.forEach((key, answer) {
@@ -56,10 +57,10 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
       });
 
       // S'il n'y a pas assez de bonnes réponses
-      if (goodAnswers < answers.length){
+      if (goodAnswers < answers.length) {
         lessonProvider.setCallbackCheck(false);
         lessonProvider.showSnackBar('number_good_answers'.tr() + ' : $goodAnswers / ' + answers.length.toString());
-      } else{
+      } else {
         lessonProvider.setCallbackCheck(true);
       }
     };
@@ -67,6 +68,7 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
     lessonProvider.setCallbackFunction(callback);
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -79,19 +81,20 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
           children: answersTargetWidget,
         ),
         SizedBox(height: 20),
-
+        OutlinedButton(onPressed: resetAnswers, child: Text('button_reset'.tr())),
       ],
     );
-  }   /// FIN DU BUILD
+  }
 
-
+  /// FIN DU BUILD
 
   //********************************************************************************************************
-  void resetAnswers() {
+  void resetAnswers({bool reload = true}) {
     answers = {};
-    for (int i = 1; i < widget.answersWidget.length+1; i++) {
+    for (int i = 1; i < widget.answersWidget.length + 1; i++) {
       answers[i] = null;
     }
+    if (reload) setState(() {});
   }
 
   // Annule une des réponses données.
@@ -112,11 +115,9 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
   // On les a a dispo, et ensuite on les dispose comme on veut à chaque rebuild
   void generateAnswersMap(List<dynamic> answersWidget) {
     // On génère les petites boites et on les met dans une map
-    for (int i = 1; i < answersWidget.length+1; i++) {
+    for (int i = 1; i < answersWidget.length + 1; i++) {
       Widget widget = answersWidget[i - 1]['widget'];
-      String label = answersWidget[i - 1]['label'] != null
-          ? answersWidget[i - 1]['label']
-          : '';
+      String label = answersWidget[i - 1]['label'] != null ? answersWidget[i - 1]['label'] : '';
       // Ici on insère le draggable dans la map avec son index (de 1 à 4)
       answersCardsMap[i] = InkWell(
         onTap: () {
@@ -131,7 +132,13 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
             label: label,
           ),
           // Renvoie un place holder gris
-          childWhenDragging: DraggableCard(isSupport: true, child: Opacity(opacity: 0.2, child: widget,),),
+          childWhenDragging: DraggableCard(
+            isSupport: true,
+            child: Opacity(
+              opacity: 0.2,
+              child: widget,
+            ),
+          ),
         ),
       );
       // On ajoute la réponse à la liste des réponses sous forme d'index
@@ -161,7 +168,6 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
             ),
           );
         },
-
         onAccept: (answer) {
           setState(() {
             resetSingleAnswer(answer);
@@ -172,16 +178,14 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
     }
   }
 
-
-
   // Génère la bonne liste de widgets qui seront affichés sur la première ligne
   List<Widget> generateCardsWidgets() {
     return answersList.map((i) {
       // Si la réponse est déja enregistrée
       return (answers.values.contains(i))
-      // on n'affiche pas la card mais juste un placeholder gris
+          // on n'affiche pas la card mais juste un placeholder gris
           ? DraggableCard(isSupport: true)
-      // Sinon c'est bien la card
+          // Sinon c'est bien la card
           : answersCardsMap[i];
     }).toList();
   }
@@ -198,14 +202,21 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
         // Sinon on affiche la draggable card correspondant à la réponse qui a été donnée
         answersTargetWidgets.add(answersCardsMap[answers[i]]);
       }
+
+      /*// Liste des widget dans le stack renvoyé
+      List<Widget> stackWidgetsList = [];
+      // Si on a une réponse, on l'affiche
+      if (answers[i] != null) stackWidgetsList.add(answersCardsMap[answers[i]]);
+      // DAns tous les cas on affiche la target
+      stackWidgetsList.add(target);
+
+      answersTargetWidgets.add(Stack(
+        children: stackWidgetsList,
+      ));*/
     });
     return answersTargetWidgets;
   }
-
-
 }
-
-
 
 class DraggableCard extends StatelessWidget {
   final Widget child;
@@ -213,13 +224,7 @@ class DraggableCard extends StatelessWidget {
   final bool isSupport;
   final String label;
 
-  DraggableCard(
-      {Key key,
-        this.child,
-        this.isSupport = false,
-        this.shadow = false,
-        this.label = ''})
-      : super(key: key);
+  DraggableCard({Key key, this.child, this.isSupport = false, this.shadow = false, this.label = ''}) : super(key: key);
 
   // L'ombre qu'on affiche (ou non)
   final BoxShadow shadowBox = BoxShadow(

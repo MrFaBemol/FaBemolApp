@@ -1,12 +1,10 @@
 import 'package:FaBemol/data/data.dart';
 import 'package:FaBemol/widgets/challenge/note_rush_scores_swiper.dart';
-import 'package:FaBemol/widgets/challenge/rankings_score_tile.dart';
 import 'package:FaBemol/widgets/container_flat_design.dart';
 import 'package:FaBemol/widgets/large_elevated_button.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:FaBemol/functions/localization.dart';
 import 'package:flutter/material.dart';
-
 
 class NoteRushChallengeCard extends StatelessWidget {
   final Map<String, dynamic> challenge = DATA.CHALLENGES_CATEGORIES['note_rush'];
@@ -16,7 +14,6 @@ class NoteRushChallengeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // La card principale
     return ContainerFlatDesign(
       // Les marges pour pas tout coller
@@ -58,10 +55,7 @@ class NoteRushChallengeCard extends StatelessWidget {
             children: [
               //Image.asset('assets/images/staff/keys/G.png', height: 70,),
               // *********************** Les scores qui défilent
-              Expanded(
-                flex: 2,
-                child: NoteRushScoresSwiper()
-              ),
+              Expanded(flex: 2, child: NoteRushScoresSwiper()),
 
               // **********************  Le bouton Jouer
               Expanded(
@@ -80,17 +74,8 @@ class NoteRushChallengeCard extends StatelessWidget {
               )
             ],
           ),
-
-
         ],
       ),
     );
-
-
   }
 }
-
-
-
-
-

@@ -45,6 +45,7 @@
   "button_search" : "Rechercher",
   "button_watch" : "Visionner",
   "button_play" : "Jouer",
+  "button_reset" : "Réinitialiser",
 
   "send_button" : "Envoyer",
   "login_button" : "Connexion",
