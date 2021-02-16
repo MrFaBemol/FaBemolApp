@@ -25,6 +25,7 @@ class MusicStaff {
 
   // Les infos de sons
   String instrument;
+  bool isClickable;
 
   MusicStaff({
     this.notes,
@@ -44,6 +45,14 @@ class MusicStaff {
 
   void setNotes(List<MusicNote> notes) {
     this.notes = notes;
+  }
+
+  // A appeler avant le render si on veut que les notes soit cliquables
+  void setClickable({bool multipleClicks = true}) {
+    // On génère les noms et les sons associés
+    generateNotesNames();
+    // Si on peut faire plusieurs clicks, alors on prévient la note !
+    this.notes.forEach((note) { note.multipleClicks = multipleClicks; });
   }
 
   Widget render() {
@@ -117,25 +126,26 @@ class MusicStaff {
     );
   } // RENDER
 
-
-
   /// Génère les noms de toutes les notes pour la clé en cours.
   Map<double, Map<String, dynamic>> notesInfosMap;
-
 
   /// *********************************************
   /// Trouve le nom des notes de la partition
   /// *********************************************
   void generateNotesNames() {
-    if (this.key == null) return;
     if (this.notesInfosMap == null) generateNotesInfosMap();
 
     this.notesNames = [];
     notes.forEach((note) {
-      // Ajoute le nom à la liste des notes
-      this.notesNames.add(notesInfosMap[note.height]['name']);
+      // Ajoute le nom à la liste des notes si on a une clé !
+      if (this.key != null) this.notesNames.add(notesInfosMap[note.height]['name']);
+
       // Génère le player audio de la note
-      note.setSoundPath(path: notesInfosMap[note.height]['sound'], instrument: this.instrument);
+      note.setSoundPath(
+        path: this.key == null ? '' : notesInfosMap[note.height]['sound'],      // Pas besoin de path si c'est un blop
+        instrument: this.instrument,
+        isBlop: this.key == null,
+      );
     });
   }
 
@@ -194,10 +204,8 @@ class MusicStaff {
     print(this.notesInfosMap);
   }
 
-
-  /*void playNote({bool isCorrect}) async{
+/*void playNote({bool isCorrect}) async{
     audioCache.play('sounds/notes/piano/A4.mp3');
   }*/
-
 
 }

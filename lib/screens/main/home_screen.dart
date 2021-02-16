@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+
+import 'package:FaBemol/functions/text_format.dart';
+import 'package:super_rich_text/super_rich_text.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -11,27 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  AudioPlayer player;
-
-  playNote() async {
-    this.player.play().then((value) {
-      this.player.pause();
-      this.player.seek(Duration.zero);
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.player = new AudioPlayer();
-    loadFiles();
-  }
-
-
-  void loadFiles() async{
-    var duration = await this.player.setAsset('assets/sounds/notes/piano/A4.mp3');
-    print(duration);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +26,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Divider(height: 1),
           SizedBox(height: 20),
-          Text(
-            'On va bien trouver quelque chose à afficher par ici ',
-            textAlign: TextAlign.justify,
+          SuperRichText(
+            text: "*Félicitations !* :D \n\nPourquoi ? Oh et bien... Si nous nous rencontrons, je suppose que c'est parce que tu as décidé d'apprendre la musique! \n\nEst-ce parce que tu as entendu un morceau qui te plaisait? Je serais curieux de le connaitre! Si le coeur t'en dit, tu peux écouter celui qui m'a donné le goût de la musique en cliquant sur le bouton au dessus!".addSmiley(),
+
+            //currentStepText.addSmiley(),
+            overflow: TextOverflow.clip,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 16, fontFamily: 'Roboto'),
           ),
-          ElevatedButton(
-            onPressed: playNote,
-            child: Text('jouer le son'),
+          Divider(),
+          Text(
+            "*Félicitations !* :D \n\nPourquoi ? Oh et bien... Si nous nous rencontrons, je suppose que c'est parce que tu as décidé d'apprendre la musique! \n\nEst-ce parce que tu as entendu un morceau qui te plaisait? Je serais curieux de le connaitre! Si le coeur t'en dit, tu peux écouter celui qui m'a donné le goût de la musique en cliquant sur le bouton au dessus!".addSmiley(),
+            overflow: TextOverflow.clip,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
           ),
         ],
       ),

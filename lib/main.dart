@@ -111,7 +111,7 @@ class _MyAppState extends State<MyApp> {
 
           //scaffoldBackgroundColor:  Color(0xFFfff9f9),
           //backgroundColor: Color(0xFFfff9f9),
-          scaffoldBackgroundColor: Colors.grey[100],
+          scaffoldBackgroundColor: Colors.grey[50],
           backgroundColor: Colors.white,
           bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.grey[100]),
 

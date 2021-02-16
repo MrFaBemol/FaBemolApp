@@ -16,6 +16,7 @@ class MusicNote {
   // Gestion du player de la note
   String soundPath;
   AudioPlayer player;
+  bool multipleClicks;
 
   MusicNote({
     this.height = 3,
@@ -79,32 +80,43 @@ class MusicNote {
     }
   }
 
-
   /// *********************************************
   /// Fonctions pour l'AUDIO
   /// *********************************************
-  void setSoundPath({String path, String instrument = 'piano'}) async {
-    this.soundPath = 'assets/sounds/notes/'+ instrument+'/' + path + '.mp3';
+  void setSoundPath({String path, String instrument = 'piano', bool isBlop = false}) async {
+    // Génère le bon son
+    this.soundPath = isBlop || path == '' || path == null ? 'assets/sounds/effects/blop_effect.mp3' : 'assets/sounds/notes/' + instrument + '/' + path + '.mp3';
     this.player = new AudioPlayer();
 
-    try{
+    //if(isBlop){print('pas de clé!');}
+    try {
       await this.player.setAsset(this.soundPath);
-    } catch(e){
+    } catch (e) {
       print('erreur de load : ' + e.toString());
     }
   }
 
   void play({bool isCorrect}) async {
+    // Dernier check
+    if (this.player == null) return;
+    //print(this.soundPath);
     try {
+      // On joue
       await this.player.play();
-      this.player.dispose();
+      // Si on a le droit de faire plusieurs click
+      if (multipleClicks) {
+        // On reset le curseur
+        await this.player.pause();
+        await this.player.seek(Duration.zero);
+      } else{
+        // Sinon on libère la mémoire
+        this.player.dispose();
+      }
+
     } catch (e) {
       print('erreur de play : ' + e.toString());
     }
   }
-
-
-
 
   /// *********************************************
   /// Renvoie la position Y en fonction de la hauteur de la note sur la portée
@@ -124,10 +136,11 @@ class MusicNote {
   void setColor(Color color) {
     this.color = color;
   }
+
   /// *********************************************
   /// Permet de changer l'opacité après la création
   /// *********************************************
-  void setOpacity(double opacity){
+  void setOpacity(double opacity) {
     this.opacity = opacity;
   }
 
@@ -145,11 +158,14 @@ class MusicNote {
       headPath = 'whole.png';
     }
 
-    this.headWidget = Image.asset(
-      'assets/images/staff/heads/' + headPath,
-      // La largeur ajustée selon si c'est une ronde ou pas
-      width: (this.duration < 4) ? STANDARD_WIDTH : WHOLENOTE_WIDTH,
-      color: (this.headColor != null) ? this.headColor : this.color,
+    this.headWidget = InkWell(
+      onTap: this.play,
+      child: Image.asset(
+        'assets/images/staff/heads/' + headPath,
+        // La largeur ajustée selon si c'est une ronde ou pas
+        width: (this.duration < 4) ? STANDARD_WIDTH : WHOLENOTE_WIDTH,
+        color: (this.headColor != null) ? this.headColor : this.color,
+      ),
     );
   }
 

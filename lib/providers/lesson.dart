@@ -1,6 +1,7 @@
 //import 'dart:js';
 
 import 'package:FaBemol/widgets/lessonsMedias/ordered_cards_widget.dart';
+import 'package:FaBemol/widgets/lessonsMedias/staff_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -208,6 +209,10 @@ class Lesson with ChangeNotifier {
         return imageMedia(media);
         break;
 
+      case 'staff':
+        return staffMedia(media);
+        break;
+
       case 'painter':
         return painterMedia(media);
         break;
@@ -222,6 +227,7 @@ class Lesson with ChangeNotifier {
 
       case 'blank':
         return Container();
+        break;
 
       // Affiche une erreur car le type de média n'est pas reconnu
       default:
@@ -237,6 +243,13 @@ class Lesson with ChangeNotifier {
     );
   }
 
+  // Renvoie une portée avec les bons paramètres
+  Widget staffMedia(dynamic media) {
+    return StaffWidget(
+      media: media,
+    );
+  }
+
   /// *********************************************
   /// Renvoie des cartes ordonnées interactives
   /// *********************************************
@@ -248,7 +261,7 @@ class Lesson with ChangeNotifier {
     // On parcourt les réponses de la DB
     answers.forEach((answer) {
       // Si on a rien de défini, autant ne pas afficher
-      if (answer['type'] == 'none' || answer['type'] == null) {
+      if (answer['type'] == 'none'|| answer['type'] == '' || answer['type'] == null) {
         return;
       }
 
@@ -290,7 +303,7 @@ class Lesson with ChangeNotifier {
     // On définit la largeur selon les infos de la DB ou par défaut
     controller.thickness = (media['thickness'] != null) ? media['thickness'] : 5.0;
     // Idem pour définir la couleur de fond de l'image (un petit gris pas piqué des hannetons)
-    controller.backgroundColor = Colors.grey[100].withOpacity(0.5); // @ todo : pouvoir choisir la couleur
+    controller.backgroundColor = Colors.grey[100].withOpacity(0.2); // @ todo : pouvoir choisir la couleur
 
     // Renvoie un widget avec painter + des boutons
     return PainterWidget(controller: controller);
@@ -300,6 +313,7 @@ class Lesson with ChangeNotifier {
   // Ici on s'occupe du dernier dessin de l'utilisateur.
   Widget lastPainterResult = Container();
 
+  // Appelée depuis le PainterWidget dans la fonction de callback
   void setLastPainterResult(Widget result) {
     this.lastPainterResult = result;
   }

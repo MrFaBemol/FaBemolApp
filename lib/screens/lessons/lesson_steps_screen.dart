@@ -6,7 +6,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:FaBemol/functions/localization.dart';
+import 'package:FaBemol/functions/text_format.dart';
 import 'package:provider/provider.dart';
+import 'package:super_rich_text/super_rich_text.dart';
 
 class LessonStepsScreen extends StatefulWidget {
   static const String routeName = '/lessons-steps';
@@ -157,19 +159,6 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
                   ),
                 ),
 
-                /*
-                ContainerFlatDesign(
-                    bgColor: Colors.blue[200],
-                    borderColor: Colors.red,
-                    padding: EdgeInsets.only(bottom: 0),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    child: currentStepDisplay,
-                  )
-                 */
-
                 // L'audio *********************************************************************************
                 if (currentStepAudio != null) AudioPlayer(),
 
@@ -177,16 +166,18 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
                 Expanded(
                   flex: 4,
                   child: Container(
+                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.3),
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-
-                    //@todo : IMPORTANT remonter le SCSV quand on change de page
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      child: Text(
-                        'Je me répète mais :\n ' + ((currentStepText + '\n') * 10),
+                      child: SuperRichText(
+                         //text: "*Félicitations !* :D \n\nPourquoi ? Oh et bien... Si nous nous rencontrons, je suppose que c'est parce que tu as décidé d'apprendre la musique! \n\nEst-ce parce que tu as entendu un morceau qui te plaisait? Je serais curieux de le connaitre! Si le coeur t'en dit, tu peux écouter celui qui m'a donné le goût de la musique en cliquant sur le bouton au dessus!".addSmiley(),
+
+                        text : currentStepText.addSmiley(),
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 16, fontFamily: 'Roboto'),
                       ),
                     ),
                   ),

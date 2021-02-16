@@ -50,7 +50,8 @@ class LoadAndRedirectScreen extends StatelessWidget {
   }
 }
 
-
+// @todo: une vraie page de chargement
+// avec des phrases marrantes hihihihihihihihi
 class WaitingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
