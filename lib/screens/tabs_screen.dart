@@ -1,5 +1,6 @@
 // Import principaux
 import 'package:FaBemol/providers/user_profile.dart';
+import 'package:FaBemol/widgets/appbars/challenge_appbar.dart';
 import 'package:FaBemol/widgets/drawers/lessons_drawer.dart';
 import 'package:FaBemol/widgets/drawers/profile_drawer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -45,6 +46,7 @@ class _TabsScreenState extends State<TabsScreen> {
       //'icon': Icon(Icons.emoji_events),
       'assetIcon' : 'assets/icons/96/trophee.png',
       'title': 'tab_challenge'.tr(),
+      'appbar': ChallengeAppBar(),
       'screen': ChallengeScreen()
     },
 

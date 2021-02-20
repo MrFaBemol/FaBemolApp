@@ -70,7 +70,7 @@
   "error_input_too_short_3" : "Minimum: 3 caractères",
   "error_social_search_already_complete" : "Les résultats sont déjà affichés !",
   "error_social_enter_search" : "Je ne peux pas deviner ce que vous cherchez !",
-  "error_social_no_result" : "Aucun résultat trouvé, désolé !",
+  "error_social_no_result" : "Aucun résultat, désolé !",
 
 
 
@@ -110,9 +110,9 @@
 
 
   "tab_lessons" : "Leçons",
-  "tab_social" : "Social",
-  "tab_home" : "Accueil",
   "tab_challenge" : "Défis",
+  "tab_home" : "Accueil",
+  "tab_social" : "Social",
   "tab_profile" : "Profil",
 
 
@@ -280,7 +280,8 @@
   "challenge_key_C3" : "Clé d'ut 3",
   "challenge_key_C4" : "Clé d'ut 4",
 
-
+  "challenge_rankings" : "Classement",
+  "challenge_PB" : "Records personnels",
 
 
 

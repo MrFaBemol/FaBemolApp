@@ -127,6 +127,9 @@ flutter:
         - asset: assets/fonts/Nexa-Light.otf
         - asset: assets/fonts/Nexa-Bold.otf
           weight: 600
+    - family: NerkoOne
+      fonts:
+        - asset: assets/fonts/NerkoOne-Regular.ttf
     - family: MusiSync
       fonts:
         - asset: assets/fonts/MusiSync.ttf

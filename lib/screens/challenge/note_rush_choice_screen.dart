@@ -3,6 +3,7 @@ import 'package:FaBemol/data/models/musicKey.dart';
 import 'package:FaBemol/providers/user_profile.dart';
 import 'package:FaBemol/screens/challenge/note_rush_game_screen.dart';
 import 'package:FaBemol/widgets/appbars/challenge_appbar.dart';
+import 'package:FaBemol/widgets/challenge/rankings_score_tile.dart';
 import 'package:FaBemol/widgets/container_flat_design.dart';
 import 'package:FaBemol/widgets/item_life_cost_text.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -95,7 +96,34 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
     int lifeCost = 1;
     final bool hasEnoughLives = Provider.of<UserProfile>(context, listen: false).hasEnoughLives(lifeCost);
 
-    // La page
+    // On check si la catégorie est sélectionnée et on génère le top 10
+    bool categorySelected = !(this.keyChoice < 0 || this.timeChoice < 0);
+    List<Widget> top10Widgets = [];
+    // Si la catégorie est sélectionnée
+    if (categorySelected) {
+      // On fait les top 1 à 10
+      for (int i = 1; i <= 10; i++) {
+        top10Widgets.add(
+          RankingsScoreTile(
+            rank: i,
+            challengeId: 'note_rush',
+            category: {
+              'key': DATA.NOTE_RUSH_KEYSLIST[this.keyChoice]['name'],
+              'time': DATA.NOTE_RUSH_TIMELIST[this.timeChoice]['name'],
+            },
+            bold: i < 4,
+          ),
+        );
+        if (i == 3) {
+          top10Widgets.add(Divider());
+        }
+        ;
+      }
+    }
+
+    /// *********************************************
+    ///  La page
+    /// *********************************************
     return Scaffold(
       appBar: ChallengeAppBar(
         challengeId: challengeId,
@@ -108,7 +136,9 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
               width: double.infinity,
               child: Column(
                 children: [
-                  // Le choix de la clé
+                  /// *********************************************
+                  /// Choix de la catégorie du challenge
+                  /// *********************************************
                   ContainerFlatDesign(
                     margin: EdgeInsets.only(left: 10, right: 10, top: 10),
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -131,7 +161,7 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                               //@todo: créer un provider pour les challenges et gérer les données dedans
-                              onPressed: (this.keyChoice < 0 || this.timeChoice < 0)
+                              onPressed: !categorySelected
                                   ? null
                                   : () {
                                       // Lance le jeu
@@ -156,6 +186,41 @@ class _NoteRushChoiceScreenState extends State<NoteRushChoiceScreen> {
                       ],
                     ),
                   ),
+
+                  /// *********************************************
+                  /// Scores
+                  /// *********************************************
+                  Container(
+                    child: !categorySelected
+                        ? Container()
+                        : ContainerFlatDesign(
+                            margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                            child: Column(
+                              children: [
+                                //ChoiceTitle(text: 'challenge_rankings'.tr()),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/icons/240/podium.png',
+                                      height: 40
+                                    ),
+                                    SizedBox(width: 5),
+                                    AutoSizeText(
+                                      'challenge_rankings'.tr(),
+                                      style: Theme.of(context).textTheme.headline6,
+                                      maxLines: 1
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                ...top10Widgets,
+                              ],
+                            ),
+                          ),
+                  ),
                 ],
               ),
             ),
@@ -177,23 +242,18 @@ class ChoiceTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Un simpl Titre avec une barre en bas
+
     return Container(
-      width: double.infinity,
       alignment: Alignment.center,
-      margin: EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).shadowColor.withOpacity(0.5),
-          ),
+      margin: EdgeInsets.symmetric(vertical: 15),
+      child: Column(children: [
+        AutoSizeText(
+          text,
+          style: Theme.of(context).textTheme.headline6,
+          maxLines: 1,
         ),
-      ),
-      child: AutoSizeText(
-        text,
-        style: Theme.of(context).textTheme.headline6,
-        maxLines: 1,
-      ),
+        Divider(),
+      ],),
     );
   }
 }

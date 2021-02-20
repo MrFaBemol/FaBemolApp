@@ -20,7 +20,7 @@ class NoteRushChallengeCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       padding: EdgeInsets.symmetric(vertical: 6, horizontal: 5),
       borderRadius: BorderRadius.circular(10),
-      borderWidth: 1.5,
+      borderWidth: 1,
 
       // Le contenu entier
       child: Column(

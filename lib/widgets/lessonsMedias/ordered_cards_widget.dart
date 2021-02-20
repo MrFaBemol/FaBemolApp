@@ -80,7 +80,7 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: answersTargetWidget,
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 30),
         OutlinedButton(onPressed: resetAnswers, child: Text('button_reset'.tr())),
       ],
     );

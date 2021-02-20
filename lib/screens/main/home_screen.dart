@@ -1,7 +1,10 @@
-
+import 'package:FaBemol/widgets/lessonsMedias/audio_player_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:FaBemol/functions/text_format.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:FaBemol/functions/durations.dart';
 import 'package:super_rich_text/super_rich_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,11 +15,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   @override
   Widget build(BuildContext context) {
-
+    //print(currentTime.percentOf(totalTime));
     return Center(
       child: Column(
         children: [
@@ -27,20 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
           Divider(height: 1),
           SizedBox(height: 20),
           SuperRichText(
-            text: "*Félicitations !* :D \n\nPourquoi ? Oh et bien... Si nous nous rencontrons, je suppose que c'est parce que tu as décidé d'apprendre la musique! \n\nEst-ce parce que tu as entendu un morceau qui te plaisait? Je serais curieux de le connaitre! Si le coeur t'en dit, tu peux écouter celui qui m'a donné le goût de la musique en cliquant sur le bouton au dessus!".addSmiley(),
-
-            //currentStepText.addSmiley(),
+            text: "Bonne chance! :trefle:".addSmiley(),
             overflow: TextOverflow.clip,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 16, fontFamily: 'Roboto'),
+            othersMarkers: markersList,
           ),
           Divider(),
-          Text(
-            "*Félicitations !* :D \n\nPourquoi ? Oh et bien... Si nous nous rencontrons, je suppose que c'est parce que tu as décidé d'apprendre la musique! \n\nEst-ce parce que tu as entendu un morceau qui te plaisait? Je serais curieux de le connaitre! Si le coeur t'en dit, tu peux écouter celui qui m'a donné le goût de la musique en cliquant sur le bouton au dessus!".addSmiley(),
-            overflow: TextOverflow.clip,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
-          ),
+          AudioPlayerWidget(
+            media: {
+              'type': 'audioplayer',
+              'url': 'https://firebasestorage.googleapis.com/v0/b/fabemol-29366.appspot.com/o/lessons%2Fmusics%2Fbeethoven_sonata_14_mvt1_extract.mp3?alt=media&token=723de15d-bdc8-400f-a17c-c8ba6440be00',
+            },
+          )
         ],
       ),
     );

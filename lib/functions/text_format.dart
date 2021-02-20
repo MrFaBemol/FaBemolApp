@@ -23,10 +23,16 @@ const Map<String, String> SMILEYS = {
   ':\'(': '😢',    // Pleurs
   '\':)': '😅',    // Sueur souriant
 
+  // Smileys avec des mots
+  ':think:': '🤔️',
+  ':suspect:': '🤔️',
+
   // Emotes avec des mots
   ':golf:': '⛳',
+  ':ski:': '⛷️',
   ':sheep:': '🐑',
-  ':think:': '🤔️',
+  ':trefle:': '🍀',
+
 };
 
 

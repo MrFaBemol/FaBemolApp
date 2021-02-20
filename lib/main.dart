@@ -11,6 +11,7 @@ import 'package:FaBemol/screens/lessons/lesson_steps_screen.dart';
 import 'package:FaBemol/screens/load_and_redirect_screen.dart';
 import 'package:FaBemol/screens/social/any_user_profile_page_screen.dart';
 import 'package:FaBemol/data/data.dart';
+import 'package:FaBemol/themes/themes_list.dart';
 
 // Flutter
 import 'package:flutter/cupertino.dart';
@@ -95,6 +96,7 @@ class _MyAppState extends State<MyApp> {
           NoteRushChoiceScreen.routeName: (_) => NoteRushChoiceScreen(),
           NoteRushGameScreen.routeName: (_) => NoteRushGameScreen(),
 
+          // Social
           AnyUserProfilePageScreen.routeName: (_) => AnyUserProfilePageScreen(),
         },
 
@@ -104,82 +106,7 @@ class _MyAppState extends State<MyApp> {
         //*****************************************************
         //*****************************************************
 
-        theme: ThemeData(
-          fontFamily: 'Raleway',
-
-          brightness: Brightness.light,
-
-          //scaffoldBackgroundColor:  Color(0xFFfff9f9),
-          //backgroundColor: Color(0xFFfff9f9),
-          scaffoldBackgroundColor: Colors.grey[50],
-          backgroundColor: Colors.white,
-          bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.grey[100]),
-
-          primaryColor: Color(0xFF253d5b),
-          accentColor: Color(0xFFe06900),
-
-          shadowColor: Colors.blueGrey[200],
-          errorColor: Colors.red,
-
-          textTheme: TextTheme(
-            bodyText1: TextStyle(color: Colors.red),
-            bodyText2: TextStyle(color: Color(0xFF253d5b), fontSize: 18),
-
-            // Titres
-            headline4: TextStyle(
-              fontFamily: 'Raleway',
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF253d5b),
-              //color: Color(0xFF020d39),
-            ),
-            headline5: TextStyle(
-              fontFamily: 'Raleway',
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF253d5b),
-              //color: Color(0xFF020d39),
-            ),
-            // TITRE DES CATEGORIES
-            headline6: TextStyle(
-              fontFamily: 'Raleway',
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF253d5b)
-            ),
-          ),
-          //.apply(bodyColor: , displayColor: ),
-
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
-              primary: Color(0xFFe06900),
-              onPrimary: Colors.white,
-              onSurface: Colors.grey,
-              textStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-          ),
-          outlinedButtonTheme: OutlinedButtonThemeData(
-            style: OutlinedButton.styleFrom(
-              shape: StadiumBorder(),
-              primary: Color(0xFFe06900),
-              side: BorderSide(color: Color(0xFFe06900)),
-              onSurface: Colors.white,
-              backgroundColor: Colors.white,
-            ),
-          ),
-          inputDecorationTheme: InputDecorationTheme(
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color(0xFFe06900),
-              ),
-            ),
-          ),
-
-
-
-
-        ),
+        theme: themes['blueOrange'],
       ),
     );
   }

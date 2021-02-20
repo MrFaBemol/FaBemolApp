@@ -11,13 +11,12 @@ class ChallengeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const ChallengeAppBar({
     Key key,
-    this.height = 45,
+    this.height = 50,
     this.challengeId = 'none',
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final color = Theme.of(context).shadowColor;
 
     return SafeArea(
@@ -25,7 +24,7 @@ class ChallengeAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: height,
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(width: 0.5, color: color),
+            bottom: BorderSide(width: 1, color: color),
           ),
           color: Theme.of(context).backgroundColor,
         ),
@@ -33,18 +32,27 @@ class ChallengeAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-
             // Si on doit afficher un nom de challenge
-            if(challengeId != 'none')
-              Expanded(child: ChallengeName(challengeId)),
-            // Sinon on met un blanc
-            if(challengeId == 'none')
-              Expanded(child: SizedBox()),
+            if (challengeId != 'none') Expanded(child: ChallengeName(challengeId)),
 
+            // Sinon on met juste genre "Défis" avec l'icone du trophéé
+            if (challengeId == 'none')
+              Expanded(
+                child: Row(
+                  children: [
+                    Image.asset('assets/icons/96/trophee.png', height: 25),
+                    SizedBox(width: 5),
+                    AutoSizeText(
+                      'tab_challenge'.tr(),
+                      style: Theme.of(context).textTheme.headline6,
+                      maxLines: 1,
+                    )
+                  ],
+                ),
+              ),
 
             // Les coeurs
             LivesCounterWidget(),
-
           ],
         ),
       ),
@@ -55,33 +63,41 @@ class ChallengeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(height);
 }
 
-
-
 /// *********************************************
 /// S'affiche si on est dans une catégorie
 /// *********************************************
 class ChallengeName extends StatelessWidget {
   final String challengeId;
+
   ChallengeName(this.challengeId);
 
   @override
   Widget build(BuildContext context) {
-
     final challenge = DATA.CHALLENGES_CATEGORIES[challengeId];
 
     return Row(
       children: [
         // Une flèche pour back
-        InkWell(child: Icon(Icons.arrow_back), onTap: (){Navigator.of(context).pop();},),
-        SizedBox(width: 5,),
-        Hero(tag : 'icon_$challengeId', child: Image.asset(challenge['icon'].toString())),
-        SizedBox(width: 5,),
-        Expanded(child: Hero(tag : 'title_$challengeId', child: AutoSizeText(challenge['title'].toString().tr(), style: Theme.of(context).textTheme.headline6,maxLines: 1,))),
+        InkWell(
+          child: Icon(Icons.arrow_back),
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        SizedBox(width: 5),
+        Hero(tag: 'icon_$challengeId', child: Image.asset(challenge['icon'].toString())),
+        SizedBox(width: 5),
+        Expanded(
+          child: Hero(
+            tag: 'title_$challengeId',
+            child: AutoSizeText(
+              challenge['title'].toString().tr(),
+              style: Theme.of(context).textTheme.headline6,
+              maxLines: 1,
+            ),
+          ),
+        ),
       ],
     );
   }
 }
-
-
-
-

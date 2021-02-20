@@ -19,26 +19,23 @@ class LessonCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // On récup les infos sur la catégorie
     // Le nombre total de leçons. Renvoie -1 Si la catégorie n'existe pas.
-    final int nbTotalLessons =
-    Provider.of<LessonsStructure>(context, listen: false)
-        .getNbLessons(this.catId);
+    final int nbTotalLessons = Provider.of<LessonsStructure>(context, listen: false).getNbLessons(this.catId);
 
     // Si on a pas l'id dans la DB, ou si on a pas de leçons à afficher ... Autant ne rien afficher
-    if (nbTotalLessons < 0) return Container(child: Text('La catégorie $catId n\'existe pas dans la DB'),);
+    if (nbTotalLessons < 0)
+      return Container(
+        child: Text('La catégorie $catId n\'existe pas dans la DB'),
+      );
     if (nbTotalLessons == 0) return Container();
 
     // La quantité de leçons terminées par l'utilisateur
-    final int nbCompleteLessons = Provider.of<UserProfile>(context)
-        .getCompletedLessonsByCategory(this.catId);
+    final int nbCompleteLessons = Provider.of<UserProfile>(context).getCompletedLessonsByCategory(this.catId);
     // On calcule la progression
-    final double progressionPercentage = (nbTotalLessons == 0)
-        ? 0
-        : nbCompleteLessons.toDouble() / nbTotalLessons.toDouble();
-
+    final double progressionPercentage = (nbTotalLessons == 0) ? 0 : nbCompleteLessons.toDouble() / nbTotalLessons.toDouble();
 
     // Le container qui sert de bordure
     return ContainerFlatDesign(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 8),
+      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
       borderRadius: BorderRadius.circular(5),
       // Le dégradé (mais à mettre dans un container si on veut retester)
       /*
@@ -53,12 +50,10 @@ class LessonCategoryCard extends StatelessWidget {
       ),
        */
 
-
       // La card principale
       child: InkWell(
         onTap: () {
-          Navigator.of(context)
-              .pushNamed(LessonsListScreen.routeName, arguments: this.catId);
+          Navigator.of(context).pushNamed(LessonsListScreen.routeName, arguments: this.catId);
         },
         child: Column(
           children: [
@@ -109,19 +104,13 @@ class LessonCategoryCard extends StatelessWidget {
                           tag: this.catId + '_title_hero',
                           child: AutoSizeText(
                             this.category['title'].toString().tr(),
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .headline6,
+                            style: Theme.of(context).textTheme.headline6,
                             maxLines: 1,
                           ),
                         ),
-                        SizedBox(
-                            height: 3
-                        ),
+                        SizedBox(height: 3),
                         Text(
-                          'lessons'.tr() +
-                              ' : $nbCompleteLessons/$nbTotalLessons',
+                          'lessons'.tr() + ' : $nbCompleteLessons/$nbTotalLessons',
                           style: TextStyle(color: Colors.grey, fontSize: 18),
                         ),
                       ],
@@ -132,7 +121,10 @@ class LessonCategoryCard extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(bottom: 0),
                     margin: EdgeInsets.only(left: 10, right: 10),
-                    child: LessonsCategoryProgression(progressionPercentage: progressionPercentage, color: this.category['color'],),
+                    child: LessonsCategoryProgression(
+                      progressionPercentage: progressionPercentage,
+                      color: this.category['color'],
+                    ),
                   ),
                 ],
               ),

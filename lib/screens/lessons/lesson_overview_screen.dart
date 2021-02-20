@@ -102,12 +102,12 @@ class _LessonOverviewScreenState extends State<LessonOverviewScreen> {
                   // @todo : changer le texte si l'utilisateur a déjà terminé la leçon (révision)
                   LifeCostText(lessonCost),
 
-                  SizedBox(height: 5),
+                  SizedBox(height: 15),
 
                   //***  Les boutons
                   if (!isLoading && hasEnoughLives)
                     Container(
-                      width: 200,
+                      width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
                           loadAndStartLesson(catId, lessonId, lessonCost);
@@ -123,7 +123,7 @@ class _LessonOverviewScreenState extends State<LessonOverviewScreen> {
                     ),
                   if (!isLoading)
                     Container(
-                      width: 200,
+                      width: double.infinity,
                       child: OutlinedButton(
                         onPressed: () {
                           Navigator.of(context).pop();

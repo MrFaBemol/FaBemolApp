@@ -15,15 +15,13 @@ class LessonsAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const LessonsAppBar({
     Key key,
-    this.height = 45,
+    this.height = 50,
     this.catId = 'none',
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final color = catId != 'none'
-        ? DATA.LESSONS_CATEGORIES[catId]['color']
-        : Theme.of(context).shadowColor;
+    final color = catId != 'none' ? DATA.LESSONS_CATEGORIES[catId]['color'] : Theme.of(context).shadowColor;
     //final color = Theme.of(context).shadowColor;
 
     return SafeArea(
@@ -34,10 +32,8 @@ class LessonsAppBar extends StatelessWidget implements PreferredSizeWidget {
             height: height,
             decoration: BoxDecoration(
               color: Theme.of(context).backgroundColor,
-              // La bordure qui doit etre basique si on a pas de catégorie
-              border: catId == 'none'
-                  ? Border(bottom: BorderSide(width: 1.0, color: color))
-                  : Border(),
+              // La bordure qui doit etre basique si on a pas de catégorie et inexistante si catégorie
+              border: catId == 'none' ? Border(bottom: BorderSide(width: 1.0, color: color)) : Border(),
             ),
             padding: EdgeInsets.only(left: 5, right: 10),
             child: Row(
@@ -102,20 +98,17 @@ class CategoryName extends StatelessWidget {
     return Row(
       children: [
         InkWell(
-          child: Icon(Icons.arrow_back),
+          child: Icon(Icons.arrow_back, size: 30,),
           onTap: () {
             Navigator.of(context).pop();
           },
         ),
-        SizedBox(
-          width: 5
-        ),
+        SizedBox(width: 5),
         Hero(
-            tag: this.catId + '_icon_hero',
-            child: Image.asset(category['icon']),),
-        SizedBox(
-          width: 5
+          tag: this.catId + '_icon_hero',
+          child: Image.asset(category['icon']),
         ),
+        SizedBox(width: 5),
         Expanded(
           child: Hero(
             tag: this.catId + '_title_hero',
@@ -134,7 +127,6 @@ class CategoryName extends StatelessWidget {
 class DrawerIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     UserProfile userProfile = Provider.of<UserProfile>(context);
 
     return InkWell(
@@ -148,7 +140,10 @@ class DrawerIcon extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             size: 20,
           ),
-          Image.asset('assets/icons/96/topaze.png', height: 28,),
+          Image.asset(
+            'assets/icons/96/topaze.png',
+            height: 28,
+          ),
           AutoSizeText(
             userProfile.currencyBalance.toStringFormatted(),
             style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 24),

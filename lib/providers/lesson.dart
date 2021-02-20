@@ -136,7 +136,7 @@ class Lesson with ChangeNotifier {
   }
 
   /// Renvoie les infos sur l'audio
-  /// Attends : le currentStep est celui affiché, donc il démarre à 1 et il faut le décrémenter
+  /// Attention : le currentStep est celui affiché, donc il démarre à 1 et il faut le décrémenter
   Map<String, String> getStepAudio(int currentStep) {
     if (steps[currentStep - 1]['audio'] != null) {
       //@todo ; gérer l'extraction des données
@@ -272,6 +272,7 @@ class Lesson with ChangeNotifier {
         widget = AutoSizeText(
           answer['value'],
           textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: 'NerkoOne', fontSize: 18),
         );
       } else if (answer['type'] == 'assetImage') {
         // Si c'est une assetImage

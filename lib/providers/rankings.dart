@@ -59,7 +59,7 @@ class Rankings with ChangeNotifier {
 
 
   /// *********************************************
-  /// Enregistre un nouveau score, et vérifie s'il faut le mettre dans le top 10. Renvoie le numéro dans le classement si c'est le cas
+  /// Enregistre un nouveau score, et vérifie s'il faut le mettre dans le top 10. Renvoie le numéro dans le classement si c'est le cas (0 sinon)
   /// *********************************************
   Future<int> saveScore({String challengeId, dynamic category, int score, dynamic stats, String username, bool isNewPB}) async {
 
@@ -133,7 +133,7 @@ class Rankings with ChangeNotifier {
       print('Erreur : Impossible de sauvegarder le score : ' + e.toString());
     }
 
-    print(classement);
+    //print(classement);
     return classement;
   }
 
