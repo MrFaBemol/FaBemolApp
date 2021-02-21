@@ -38,17 +38,7 @@ class LessonCategoryCard extends StatelessWidget {
       margin: EdgeInsets.only(left: 10, right: 10, top: 10),
       borderRadius: BorderRadius.circular(5),
       // Le dégradé (mais à mettre dans un container si on veut retester)
-      /*
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(
-          colors: [
-            this.category['color'].shade700,
-            this.category['color'].shade200,
-          ]
-        )
-      ),
-       */
+
 
       // La card principale
       child: InkWell(
@@ -57,23 +47,7 @@ class LessonCategoryCard extends StatelessWidget {
         },
         child: Column(
           children: [
-            //************ La couleur du truc au dessus
-            /*
-              Container(
-                width: double.infinity,
-                height: 3,
-                margin: EdgeInsets.only(left: 15, right: 15),
-                decoration: BoxDecoration(
-                  color: this.category['color'].withOpacity(0.35),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40)),
-                ),
-              ),
 
-               */
-
-            SizedBox(height: 5),
 
             // ************************************** LA CATEGORIE EN QUESTION
             Container(

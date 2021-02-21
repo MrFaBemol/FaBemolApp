@@ -45,6 +45,7 @@ dependencies:
   flashy_tab_bar: ^0.0.3
   tab_indicator_styler: ^1.0.0
 
+  connectivity: ^2.0.2
   firebase_core: ^0.7.0
   cloud_firestore: ^0.16.0
   firebase_auth: ^0.20.0

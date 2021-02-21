@@ -202,7 +202,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                       children: [
                                         Image.asset('assets/icons/96/score.png', height: 30),
                                         SizedBox(width: 5),
-                                        AutoSizeText('Score', style: Theme.of(context).textTheme.headline6, maxLines: 1),
+                                        AutoSizeText('challenge_score'.tr(), style: Theme.of(context).textTheme.headline6, maxLines: 1),
                                       ],
                                     ),
                                     // Le score
@@ -227,7 +227,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                         children: [
                                           Image.asset('assets/icons/96/croches.png', height: 30),
                                           SizedBox(width: 5),
-                                          AutoSizeText('Série ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18), maxLines: 1),
+                                          AutoSizeText('challenge_serie'.tr(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18), maxLines: 1),
                                           Expanded(child: Container()),
                                           AutoSizeText(this.notesInARow.toString(), style: TextStyle( fontSize: 22), maxLines: 1),
                                         ],
@@ -241,7 +241,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                         children: [
                                           Image.asset('assets/icons/96/trefle.png', height: 30),
                                           SizedBox(width: 5),
-                                          AutoSizeText('Combo', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18), maxLines: 1),
+                                          AutoSizeText('challenge_combo'.tr(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18), maxLines: 1),
                                           Expanded(child: Container()),
                                           AutoSizeText('x' + this.comboFactor.toString(), style: TextStyle(fontSize: 22), maxLines: 1),
                                         ],
@@ -310,7 +310,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 AutoSizeText(
-                                  'Chargement des résultats'.tr(),
+                                  'challenge_loading_results'.tr(),
                                   maxLines: 1,
                                   style: TextStyle(color: Colors.grey),
                                 ),
@@ -335,7 +335,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                         children: [
                                           Image.asset('assets/icons/96/score.png', height: 30),
                                           SizedBox(width: 5),
-                                          AutoSizeText('Score total', maxLines: 1, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                          AutoSizeText('challenge_total_score'.tr(), maxLines: 1, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       SizedBox(height: 10),
@@ -347,11 +347,19 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                           if (isNewPB) Image.asset('assets/icons/96/winner.png', height: 40),
                                         ],
                                       ),
-                                      if (isNewPB) Text('Nouveau record !', style: TextStyle(fontSize: 16)),
+                                      if (isNewPB) Text('challenge_new_personal_best'.tr(), style: TextStyle(fontSize: 16)),
                                       SizedBox(height: 25),
 
                                       /// Bonnes réponses brutes
-                                      AutoSizeText('Bonnes réponses', maxLines: 1, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset('assets/icons/96/ok_badge.png', height: 30),
+                                          SizedBox(width: 5),
+                                          AutoSizeText('challenges_good_answers'.tr(), maxLines: 1, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                        ],
+                                      ),
+
                                       SizedBox(height: 10),
                                       Container(
                                         alignment: Alignment.center,
@@ -367,8 +375,8 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                           children: [
                                             Expanded(flex: 5, child: Container()),
                                             Expanded(flex: 1, child: Container()),
-                                            Expanded(flex: 2, child: AutoSizeText('Partie', maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 14))),
-                                            Expanded(flex: 2, child: AutoSizeText('Récent', maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 14))),
+                                            Expanded(flex: 2, child: AutoSizeText('challenge_game'.tr(), maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 14))),
+                                            Expanded(flex: 2, child: AutoSizeText('challenge_recent'.tr(), maxLines: 1, textAlign: TextAlign.center, style: TextStyle(fontSize: 14))),
                                           ],
                                         ),
                                       ),
@@ -381,7 +389,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                           children: [
                                             Expanded(
                                               flex: 5,
-                                              child: AutoSizeText('Précision', maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                              child: AutoSizeText('challenge_precision'.tr(), maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                                             ),
                                             Expanded(flex: 1, child: Container()),
                                             Expanded(
@@ -419,9 +427,9 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                                 flex: 5,
                                                 child: Row(
                                                   children: [
-                                                    AutoSizeText('Vitesse', maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                                    AutoSizeText('challenge_speed'.tr(), maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                                                     SizedBox(width: 5),
-                                                    AutoSizeText('(s/notes)', maxLines: 1, style: TextStyle(fontSize: 14, color: Colors.grey)),
+                                                    AutoSizeText('challenge_speed_unity'.tr(), maxLines: 1, style: TextStyle(fontSize: 14, color: Colors.grey)),
                                                   ],
                                                 )),
                                             Expanded(flex: 1, child: Container()),
@@ -455,7 +463,7 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
                                         height: 40,
                                         child: Row(
                                           children: [
-                                            Expanded(flex: 5, child: AutoSizeText('Meilleure série', maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                                            Expanded(flex: 5, child: AutoSizeText('challenge_best_serie'.tr(), maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
                                             Expanded(flex: 1, child: Container()),
                                             Expanded(
                                                 flex: 2,

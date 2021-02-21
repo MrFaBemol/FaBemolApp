@@ -97,12 +97,14 @@ class MusicNote {
   }
 
   void play({bool isCorrect}) async {
+
     // Dernier check
     if (this.player == null) return;
-    //print(this.soundPath);
+    print(this.soundPath);
     try {
       // On joue
       await this.player.play();
+      print('on joue la note');
       // Si on a le droit de faire plusieurs click
       if (multipleClicks) {
         // On reset le curseur

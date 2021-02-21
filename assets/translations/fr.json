@@ -285,6 +285,23 @@
 
 
 
+  "challenge_score" : "Score",
+  "challenge_serie" : "Série",
+  "challenge_combo" : "Combo",
+  "challenge_loading_results" : "Chargement des résultats",
+
+  "challenge_total_score" : "Score total",
+  "challenge_new_personal_best" : "Nouveau record !",
+  "challenges_good_answers" : "Bonnes réponses",
+  "challenge_game" : "Partie",
+  "challenge_recent" : "Récent",
+  "challenge_precision" : "Précision",
+  "challenge_speed" : "Vitesse",
+  "challenge_speed_unity" : "(s/notes)",
+  "challenge_best_serie" : "Meilleure série",
+
+
+
 
 
 

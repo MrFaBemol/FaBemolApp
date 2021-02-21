@@ -5,6 +5,7 @@ import 'package:FaBemol/data/models/musicNote.dart';
 import 'package:FaBemol/data/models/musicStaff.dart';
 import 'package:FaBemol/widgets/staves/notes_buttons_layouts.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 /// *********************************************
 /// Une portée qui s'actualise automatiquement quand toutes les notes sont trouvées
@@ -26,6 +27,9 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
   MusicStaff staff;
   List<MusicNote> notes;
 
+  List<AudioPlayer> clusterSounds = [];
+  int nbClusters = 7;
+  Random rng = new Random();    // Pour pick  un son au hasard si ya une mauvaise réponse
 
 
   int answerIndex = 0;
@@ -46,6 +50,15 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
     );
     // On récup le nom des notes
     this.staff.generateNotesNames();
+
+
+    // Génère les players des clusters
+    for (int i = 0; i < nbClusters ; i++){
+      AudioPlayer clusterPlayer = AudioPlayer();
+      String path = 'assets/sounds/effects/cluster'+ (i+1).toString() +'.mp3';
+      clusterPlayer.setAsset(path);
+      clusterSounds.add(clusterPlayer);
+    }
 
   }
 
@@ -89,8 +102,19 @@ class _NotesButtonsStaffState extends State<NotesButtonsStaff> {
       // On met à jour la note avec la bonne couleur selon la réponse
       this.notes[answerIndex].setColor(isCorrect ? Colors.green : Colors.red);
       this.notes[answerIndex].setOpacity(0.3);
-      // On joue la note
-      this.notes[answerIndex].play(isCorrect: isCorrect);
+      // On joue la note ou un cluster si c'est une mauvaise réponse
+      print(isCorrect);
+      if (isCorrect){
+        this.notes[answerIndex].play(isCorrect: isCorrect);   // isCorrect est inutile, mais on verra si besoin plus tard
+      } else {
+        // On pick un son au hasard avec un index de 0 à nbClusters-1
+        int randIndex = rng.nextInt(nbClusters) ;
+        print(randIndex);
+        // Reset du son si déjà joué et le joue
+        this.clusterSounds[randIndex].seek(Duration.zero);
+        this.clusterSounds[randIndex].play();
+      }
+
       this.answerIndex++;
 
       // Si toutes les notes actuelles sont passées, on envoie le nombre de bonnes réponses de la série
