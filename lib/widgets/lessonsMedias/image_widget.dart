@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ImageWidget extends StatelessWidget {
-  //************************************************************
-  // QUelques équivalences, histoire de pouvoir décider de ça depuis la base de données...
-  static const Map<String, BoxFit> IMG_FIT = {
-    'zoom': BoxFit.cover,
-    'full': BoxFit.contain,
-  };
-  static const Map<String, Alignment> IMG_ALIGN = {
-    'center': Alignment.center,
-    'topCenter': Alignment.topCenter,
-    'bottomCenter': Alignment.bottomCenter,
-    'centerRight': Alignment.centerRight,
-    'centerLeft': Alignment.centerLeft,
-    'topLeft': Alignment.topLeft,
-    'topRight': Alignment.topRight,
-    'bottomLeft': Alignment.bottomLeft,
-    'bottomRight': Alignment.bottomRight,
-  };
 
+  /// *********************************************
+  /// Obligatoire :
+  ///   - src : L'url du fichier source ou le path dans les assets
+  ///
+  /// Optionnel:
+  ///   - fit: 'zoom' (remplit le display) / 'full' (l'image est entièrement visible quoi qu'il arrive)
+  ///   - align: même "string" que dans Alignement.XXXXXXX
+  /// *********************************************
   final dynamic media;
-
   ImageWidget({this.media});
 
   @override
@@ -56,4 +46,25 @@ class ImageWidget extends StatelessWidget {
       ),
     );
   }
+
+
+
+
+  //************************************************************
+  // QUelques équivalences, histoire de pouvoir décider de ça depuis la base de données...
+  static const Map<String, BoxFit> IMG_FIT = {
+    'zoom': BoxFit.cover,
+    'full': BoxFit.contain,
+  };
+  static const Map<String, Alignment> IMG_ALIGN = {
+    'center': Alignment.center,
+    'topCenter': Alignment.topCenter,
+    'bottomCenter': Alignment.bottomCenter,
+    'centerRight': Alignment.centerRight,
+    'centerLeft': Alignment.centerLeft,
+    'topLeft': Alignment.topLeft,
+    'topRight': Alignment.topRight,
+    'bottomLeft': Alignment.bottomLeft,
+    'bottomRight': Alignment.bottomRight,
+  };
 }

@@ -1,5 +1,6 @@
 //import 'dart:js';
 
+import 'package:FaBemol/widgets/lessonsMedias/audio_player_widget.dart';
 import 'package:FaBemol/widgets/lessonsMedias/ordered_cards_widget.dart';
 import 'package:FaBemol/widgets/lessonsMedias/staff_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -213,10 +214,10 @@ class Lesson with ChangeNotifier {
         return staffMedia(media);
         break;
 
+      // Painter
       case 'painter':
         return painterMedia(media);
         break;
-
       case 'lastPainterResult':
         return lastPainterResult;
         break;
@@ -225,6 +226,11 @@ class Lesson with ChangeNotifier {
         return orderedCardsMedia(media);
         break;
 
+      case 'audioPlayer':
+        return audioPlayerMedia(media);
+        break;
+
+      // Un tableau blanc
       case 'blank':
         return Container();
         break;
@@ -238,16 +244,16 @@ class Lesson with ChangeNotifier {
   // Renvoie une image avec les bons paramètres
   // Pas la fonction la plus utile, mais permet de dégager toutes les constantes de merde de ce fichier.
   Widget imageMedia(dynamic media) {
-    return ImageWidget(
-      media: media,
-    );
+    return ImageWidget(media: media);
   }
 
   // Renvoie une portée avec les bons paramètres
   Widget staffMedia(dynamic media) {
-    return StaffWidget(
-      media: media,
-    );
+    return StaffWidget(media: media);
+  }
+
+  Widget audioPlayerMedia(dynamic media) {
+    return AudioPlayerWidget(media: media);
   }
 
   /// *********************************************
@@ -261,7 +267,7 @@ class Lesson with ChangeNotifier {
     // On parcourt les réponses de la DB
     answers.forEach((answer) {
       // Si on a rien de défini, autant ne pas afficher
-      if (answer['type'] == 'none'|| answer['type'] == '' || answer['type'] == null) {
+      if (answer['type'] == 'none' || answer['type'] == '' || answer['type'] == null) {
         return;
       }
 

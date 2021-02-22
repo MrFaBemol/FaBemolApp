@@ -19,6 +19,9 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
   bool isLoading = false;
   bool rewardedAdWatched = false;
 
+  /// *********************************************
+  /// Le callback quand on clique sur le bouton (enregistre la progression et les gemmes gagnées)
+  /// *********************************************
   void endLesson(BuildContext context, int reward) async {
     setState(() {
       isLoading = true;
@@ -31,7 +34,7 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
       lessonProvider.lessonId,
     );
     await Provider.of<UserProfile>(context, listen: false).earnCurrency(reward);
-    Navigator.of(context).pop();
+    Provider.of<AdManager>(context, listen: false).showInterstitialAd();
   }
 
   @override
@@ -45,6 +48,7 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
         rewardedAdWatched = true;
       });
     });
+    Provider.of<AdManager>(context, listen: false).initInterstitialAd(closedCallback: (){Navigator.of(context).pop();});
   }
 
   @override

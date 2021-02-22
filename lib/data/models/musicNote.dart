@@ -83,7 +83,7 @@ class MusicNote {
   /// *********************************************
   /// Fonctions pour l'AUDIO
   /// *********************************************
-  void setSoundPath({String path, String instrument = 'piano', bool isBlop = false}) async {
+  void setSoundPath({String path, String instrument = 'piano', bool isBlop = false, double volume = 100.0}) async {
     // Génère le bon son
     this.soundPath = isBlop || path == '' || path == null ? 'assets/sounds/effects/blop_effect.mp3' : 'assets/sounds/notes/' + instrument + '/' + path + '.mp3';
     this.player = new AudioPlayer();
@@ -91,6 +91,7 @@ class MusicNote {
     //if(isBlop){print('pas de clé!');}
     try {
       await this.player.setAsset(this.soundPath);
+      this.player.setVolume(volume / 100.0);
     } catch (e) {
       print('erreur de load : ' + e.toString());
     }
@@ -104,7 +105,7 @@ class MusicNote {
     try {
       // On joue
       await this.player.play();
-      print('on joue la note');
+      //print('on joue la note');
       // Si on a le droit de faire plusieurs click
       if (multipleClicks) {
         // On reset le curseur

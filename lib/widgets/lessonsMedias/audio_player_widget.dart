@@ -6,8 +6,11 @@ import 'package:just_audio/just_audio.dart';
 import 'package:FaBemol/functions/durations.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
+  /// *********************************************
+  /// Obligatoire :
+  ///   src : L'url du fichier source
+  /// *********************************************
   final dynamic media;
-
   AudioPlayerWidget({this.media});
 
   @override
@@ -38,7 +41,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   /// Charge le fichier en mémoire et récupère la durée, puis met à jour le state
   /// *********************************************
   void load() async {
-    totalTime = await player.setUrl(widget.media['url']);
+    totalTime = await player.setUrl(widget.media['src']);
     setState(() {});
   }
 

@@ -3,12 +3,64 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class AdManager with ChangeNotifier {
-  bool rewardedVideoAdLoaded = false;
-  bool interstitialAdLoaded = false;
+
+  MobileAdTargetingInfo adTargetInfos = MobileAdTargetingInfo(keywords: ['Music', 'Learning', 'Piano']);
+
+  // Banner
   bool bannerAdLoaded = false;
+
+  // Rewarded
+  bool rewardedVideoAdLoaded = false;
+
+  // Interstitial
+  InterstitialAd interstitialAd;
+  bool interstitialAdLoaded = false;
 
   Future<void> initAdMob() {
     return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
+  }
+
+
+
+  /// *********************************************
+  /// Initialise une pub interstitielle (les paramètres sont les callback à appeler)
+  /// *********************************************
+  void initInterstitialAd({
+    Function loadedCallback,
+    Function closedCallback,
+    Function failedToLoadCallback,
+  }) {
+    this.interstitialAd = InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      targetingInfo: this.adTargetInfos,
+      listener: (MobileAdEvent event){
+        switch (event) {
+          case MobileAdEvent.loaded:
+            interstitialAdLoaded = true;
+            loadedCallback?.call();
+            break;
+          case MobileAdEvent.failedToLoad:
+            interstitialAdLoaded = false;
+            print('Failed to load an interstitial ad');
+            failedToLoadCallback?.call();
+            break;
+          case MobileAdEvent.closed:
+            closedCallback?.call();
+            break;
+          default:
+          // do nothing
+        }
+      }
+    );
+
+    this.interstitialAd.load();
+  }
+
+  void showInterstitialAd(){
+    this.interstitialAd.show();
+  }
+  void disposeInterstitialAd(){
+    this.interstitialAd.dispose();
   }
 
   /// *********************************************
@@ -20,7 +72,6 @@ class AdManager with ChangeNotifier {
     Function failedToLoadCallback,
     Function rewardedCallback,
   }) {
-
     // La fonction qui va se charger de tout ce qu'il faut avec le gros switch
     RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
       switch (event) {
@@ -62,15 +113,15 @@ class AdManager with ChangeNotifier {
   /// *********************************************
   void _loadRewardedAd() {
     // On ne charge rien si la vidéo est déjà là.
-    if(this.rewardedVideoAdLoaded) {
+    if (this.rewardedVideoAdLoaded) {
       print('********************************* Déjà chargée *******************************');
       return;
     }
-      // On lance le chargement
-      RewardedVideoAd.instance.load(
-        targetingInfo: MobileAdTargetingInfo(keywords: ['Music', 'Learning', 'Piano']),
-        adUnitId: AdManager.rewardedAdUnitId,
-      );
+    // On lance le chargement
+    RewardedVideoAd.instance.load(
+      targetingInfo: this.adTargetInfos,
+      adUnitId: AdManager.rewardedAdUnitId,
+    );
   }
 
   /// *********************************************
@@ -79,10 +130,11 @@ class AdManager with ChangeNotifier {
   void clearRewardedAd() {
     RewardedVideoAd.instance.listener = null;
   }
-/// *********************************************
-/// Affiche la publicité avec récompense chargée
-/// *********************************************
-  void showRewardedAd(){
+
+  /// *********************************************
+  /// Affiche la publicité avec récompense chargée
+  /// *********************************************
+  void showRewardedAd() {
     RewardedVideoAd.instance.show();
   }
 
