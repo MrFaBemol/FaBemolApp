@@ -164,6 +164,7 @@ class AdManager with ChangeNotifier {
 
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
+      // Mon code : ca-app-pub-5752312593352673/3485567216
       return "ca-app-pub-3940256099942544/7049598008";
     } else if (Platform.isIOS) {
       return "ca-app-pub-3940256099942544/3964253750";

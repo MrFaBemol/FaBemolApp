@@ -68,4 +68,9 @@ List<MarkerText> markersList = [
     style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
   ),
 
+  MarkerText(
+    marker: '*h1',
+    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+  ),
+
 ];

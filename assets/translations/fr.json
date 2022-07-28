@@ -7,6 +7,8 @@
 
   "welcome" : "Bienvenue",
   "welcome_back" : "Re-bienvenue",
+  "thanks" : "Merci!",
+  "thanks_a_lot" : "Merci beaucoup!",
 
   "login" : "Se connecter",
   "signin" : "S'inscrire",
@@ -121,8 +123,8 @@
 
   "lessons" : "Leçons",
 
-  "lesson_category_notation" : "Notation musicale",
-  "lesson_category_eartraining" : "Écoute & Théorie",
+  "lesson_category_notation" : "Théorie & Notation",
+  "lesson_category_eartraining" : "Travail de l'écoute",
   "lesson_category_history" : "Histoire de la musique",
   "lesson_category_analysis" : "Analyse",
   "lesson_category_organology" : "Organologie",
@@ -140,8 +142,7 @@
   "notation_subcategory_rhythms" : "Rythmes",
   "notation_subcategory_staff" : "Portée",
   "notation_subcategory_signs" : "Autres signes",
-  
-  "eartraining_subcategory_registers" : "Registres et Timbres",
+
   "eartraining_subcategory_intervals" : "Intervalles",
   "eartraining_subcategory_chords" : "Accords",
   "eartraining_subcategory_dictations" : "Dictées à trous",

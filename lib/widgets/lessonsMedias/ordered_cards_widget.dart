@@ -144,8 +144,12 @@ class _OrderedCardsWidgetState extends State<OrderedCardsWidget> {
       // On ajoute la réponse à la liste des réponses sous forme d'index
       answersList.add(i);
     }
+    var answersListDuplicate = answersList;
+
     // On mélange bien le tout
-    answersList.shuffle();
+    while (answersListDuplicate == answersList){
+      answersList.shuffle();
+    }
   }
 
   // Génère une map de Widget qui sera éventuellement utilisé ensuite

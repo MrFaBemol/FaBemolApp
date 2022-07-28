@@ -11,6 +11,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:FaBemol/functions/localization.dart';
 import 'package:FaBemol/functions/numbers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 class NoteRushGameScreen extends StatefulWidget {
@@ -56,6 +57,9 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
   double averageAccuracy = -1;
   double averageSpeed = -1;
 
+  // Le player de feedback
+  AudioPlayer jinglePlayer;
+
   @override
   void dispose() {
     // De quoi annuler le timer quand on quitte la page
@@ -80,15 +84,20 @@ class _NoteRushGameScreenState extends State<NoteRushGameScreen> {
     });
   }
 
-  void endGame() {
+  void endGame() async {
     this.timer.cancel();
+    jinglePlayer = AudioPlayer();
+
     setState(() {
       this.resultsLoaded = false;
       this.timerStarted = false;
       this.accuracy = this.totalAnswers > 0 ? (this.totalGoodAnswers / this.totalAnswers) * 100 : 0;
       this.speed =  this.totalAnswers > 0 ?  this.nbSeconds / this.totalAnswers : this.nbSeconds.toDouble();
     });
-    saveScoreToDatabase();
+
+    await jinglePlayer.setAsset('assets/sounds/effects/end_jingle.mp3');
+    await saveScoreToDatabase();
+    jinglePlayer.play();
   }
 
   Future<void> saveScoreToDatabase() async {

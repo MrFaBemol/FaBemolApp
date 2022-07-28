@@ -177,6 +177,7 @@ class _LessonStepsScreenState extends State<LessonStepsScreen> {
                         text : currentStepText.addSmiley(),
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.center,
+                        othersMarkers: markersList,
                         style: Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 18, fontFamily: 'Roboto'),
                       ),
                     ),

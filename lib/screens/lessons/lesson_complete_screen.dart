@@ -6,6 +6,7 @@ import 'package:FaBemol/widgets/container_flat_design.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:FaBemol/functions/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 class LessonCompleteScreen extends StatefulWidget {
@@ -17,7 +18,9 @@ class LessonCompleteScreen extends StatefulWidget {
 
 class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
   bool isLoading = false;
+  bool jingleLoaded;
   bool rewardedAdWatched = false;
+  AudioPlayer player;
 
   /// *********************************************
   /// Le callback quand on clique sur le bouton (enregistre la progression et les gemmes gagnées)
@@ -40,6 +43,9 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
   @override
   void initState() {
     super.initState();
+    jingleLoaded = false;
+    // Initialise le player
+    playJingle();
     // On initialise le firebase admob
     Provider.of<AdManager>(context, listen: false).initAdMob();
     // On charge une pub déjà comme ça c'est fait.
@@ -48,7 +54,28 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
         rewardedAdWatched = true;
       });
     });
-    Provider.of<AdManager>(context, listen: false).initInterstitialAd(closedCallback: (){Navigator.of(context).pop();});
+    Provider.of<AdManager>(context, listen: false).initInterstitialAd(closedCallback: () {
+      Navigator.of(context).pop();
+    });
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
+
+  void playJingle() async {
+    player = AudioPlayer();
+    try {
+      await player.setAsset('assets/sounds/effects/end_jingle.mp3');
+      player.play();
+      setState(() {
+        jingleLoaded = true;
+      });
+    } on Exception catch (e) {
+      print('Impossible de jouer le jingle de fin : ' + e.toString());
+    }
   }
 
   @override
@@ -72,140 +99,151 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: ContainerFlatDesign(
-            screenWidth: true,
-            margin: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              children: [
-                Image.asset('assets/icons/240/couronne-de-laurier.png', width: 120),
-                AutoSizeText('Leçon terminée !', style: Theme.of(context).textTheme.headline5, maxLines: 1), // @todo: trad
-                SizedBox(height: 20),
-
-                // La récompense de base *****************************************************************************************
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AutoSizeText(
-                      'lesson_reward'.tr() + ' :',
-                      maxLines: 1,
-                      style: TextStyle(fontWeight: (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched) ? FontWeight.normal : FontWeight.bold),
-                    ),
-                    Expanded(child: Container()),
-                    AutoSizeText(
-                      baseReward.toStringAsFixed(0),
-                      style: TextStyle(fontWeight: (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched) ? FontWeight.normal : FontWeight.bold),
-                    ),
-                    Image.asset('assets/icons/96/topaze.png', height: 20),
-                  ],
-                ),
-                SizedBox(height: 10),
-
-                // Si on a un multiplicateur de coût, on l'affiche
-                if (costFactor != 1)
-                  Row(
+        // Montre un chargement si le son n'est pas loadé.
+        child: !jingleLoaded
+            ? Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: ContainerFlatDesign(
+                  screenWidth: true,
+                  margin: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
                     children: [
-                      AutoSizeText('lesson_reward_cost_bonus'.tr() + ' :', maxLines: 1),
-                      Expanded(child: Container()),
-                      AutoSizeText(
-                        costFactor.truncateToDouble() != costFactor ? 'x' + costFactor.toString() : 'x' + costFactor.toStringAsFixed(0),
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
+                      Image.asset('assets/icons/240/couronne-de-laurier.png', width: 120),
+                      AutoSizeText('lesson_finished'.tr(), style: Theme.of(context).textTheme.headline5, maxLines: 1), // @todo: trad
+                      SizedBox(height: 20),
 
-                // Si on a un multiplicateur de difficulté, on l'affiche
-                if (difficultyFactor != 1)
-                  Row(
-                    children: [
-                      AutoSizeText('lesson_reward_difficulty_bonus'.tr() + ' :', maxLines: 1),
-                      Expanded(child: Container()),
-                      AutoSizeText(
-                        difficultyFactor.truncateToDouble() != difficultyFactor ? 'x' + difficultyFactor.toString() : 'x' + difficultyFactor.toStringAsFixed(0),
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-
-                // Si on a un multiplicateur de publicité
-                if (rewardedAdWatched)
-                  Row(
-                    children: [
-                      AutoSizeText('lesson_reward_rewarded_ad_bonus'.tr() + ' :', maxLines: 1),
-                      Expanded(child: Container()),
-                      AutoSizeText('x' + DATA.COMPLETE_LESSON_REWARDED_AD.truncate().toString(), maxLines: 1),
-                    ],
-                  ),
-
-                // Le total à afficher s'il y a des modificateurs
-                if (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched) Divider(color: Theme.of(context).shadowColor),
-                if (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched)
-                  Row(
-                    children: [
-                      AutoSizeText(
-                        'lesson_reward_total'.tr() + ' :',
-                        maxLines: 1,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Expanded(child: Container()),
-                      AutoSizeText(
-                        totalReward.truncate().toString(),
-                        maxLines: 1,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Image.asset('assets/icons/96/topaze.png', height: 20),
-                    ],
-                  ),
-
-                SizedBox(height: 20),
-                // Le loading circle qui s'affiche quand on termine la leçon
-                if (isLoading) CircularProgressIndicator(),
-
-                // Le bouton pour regarder les publicités
-                if (!isLoading)
-                  Container(
-                    width: 200,
-                    child: ElevatedButton(
-                      // On active le bouton seulement si l'utilisateur n'a pas encore lancé une vidéo pour avoir le bonus
-                      onPressed: !rewardedAdWatched
-                          ? () {
-                              adManager.showRewardedAd();
-                            }
-                          : null,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      // La récompense de base *****************************************************************************************
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          AutoSizeText('button_watch'.tr() + ' ', maxLines: 1),
+                          AutoSizeText(
+                            'lesson_reward'.tr() + ' :',
+                            maxLines: 1,
+                            style: TextStyle(fontWeight: (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched) ? FontWeight.normal : FontWeight.bold),
+                          ),
+                          Expanded(child: Container()),
+                          AutoSizeText(
+                            baseReward.toStringAsFixed(0),
+                            style: TextStyle(fontWeight: (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched) ? FontWeight.normal : FontWeight.bold),
+                          ),
                           Image.asset('assets/icons/96/topaze.png', height: 20),
-                          AutoSizeText('x' + DATA.COMPLETE_LESSON_REWARDED_AD.truncate().toString(), maxLines: 1),
                         ],
                       ),
-                    ),
-                  ),
-                // Le bouton pour terminer la leçon et cie
-                if (!isLoading)
-                  Container(
-                    width: 200,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        endLesson(context, totalReward.truncate());
-                      },
-                      child: AutoSizeText('button_continue'.tr(), maxLines: 1),
-                    ),
-                  ),
+                      SizedBox(height: 10),
 
-                SizedBox(height: 20),
-                if (!rewardedAdWatched)
-                  AutoSizeText('ad_rewarded_complete_lesson_label'.tr(), textAlign: TextAlign.center, style: TextStyle(fontSize: 14),),
-                if (rewardedAdWatched) AutoSizeText("Merci beaucoup !" , textAlign: TextAlign.center, style: TextStyle(fontSize: 14),),
-              ],
-            ),
-          ),
-        ),
+                      // Si on a un multiplicateur de coût, on l'affiche
+                      if (costFactor != 1)
+                        Row(
+                          children: [
+                            AutoSizeText('lesson_reward_cost_bonus'.tr() + ' :', maxLines: 1),
+                            Expanded(child: Container()),
+                            AutoSizeText(
+                              costFactor.truncateToDouble() != costFactor ? 'x' + costFactor.toString() : 'x' + costFactor.toStringAsFixed(0),
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+
+                      // Si on a un multiplicateur de difficulté, on l'affiche
+                      if (difficultyFactor != 1)
+                        Row(
+                          children: [
+                            AutoSizeText('lesson_reward_difficulty_bonus'.tr() + ' :', maxLines: 1),
+                            Expanded(child: Container()),
+                            AutoSizeText(
+                              difficultyFactor.truncateToDouble() != difficultyFactor ? 'x' + difficultyFactor.toString() : 'x' + difficultyFactor.toStringAsFixed(0),
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+
+                      // Si on a un multiplicateur de publicité
+                      if (rewardedAdWatched)
+                        Row(
+                          children: [
+                            AutoSizeText('lesson_reward_rewarded_ad_bonus'.tr() + ' :', maxLines: 1),
+                            Expanded(child: Container()),
+                            AutoSizeText('x' + DATA.COMPLETE_LESSON_REWARDED_AD.truncate().toString(), maxLines: 1),
+                          ],
+                        ),
+
+                      // Le total à afficher s'il y a des modificateurs
+                      if (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched) Divider(color: Theme.of(context).shadowColor),
+                      if (difficultyFactor != 1 || costFactor != 1 || rewardedAdWatched)
+                        Row(
+                          children: [
+                            AutoSizeText(
+                              'lesson_reward_total'.tr() + ' :',
+                              maxLines: 1,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(child: Container()),
+                            AutoSizeText(
+                              totalReward.truncate().toString(),
+                              maxLines: 1,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Image.asset('assets/icons/96/topaze.png', height: 20),
+                          ],
+                        ),
+
+                      SizedBox(height: 20),
+                      // Le loading circle qui s'affiche quand on termine la leçon
+                      if (isLoading) CircularProgressIndicator(),
+
+                      // Le bouton pour regarder les publicités
+                      if (!isLoading)
+                        Container(
+                          width: 200,
+                          child: ElevatedButton(
+                            // On active le bouton seulement si l'utilisateur n'a pas encore lancé une vidéo pour avoir le bonus
+                            onPressed: !rewardedAdWatched
+                                ? () {
+                                    adManager.showRewardedAd();
+                                  }
+                                : null,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AutoSizeText('button_watch'.tr() + ' ', maxLines: 1),
+                                Image.asset('assets/icons/96/topaze.png', height: 20),
+                                AutoSizeText('x' + DATA.COMPLETE_LESSON_REWARDED_AD.truncate().toString(), maxLines: 1),
+                              ],
+                            ),
+                          ),
+                        ),
+                      // Le bouton pour terminer la leçon et cie
+                      if (!isLoading)
+                        Container(
+                          width: 200,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              endLesson(context, totalReward.truncate());
+                            },
+                            child: AutoSizeText('button_continue'.tr(), maxLines: 1),
+                          ),
+                        ),
+
+                      SizedBox(height: 20),
+                      if (!rewardedAdWatched)
+                        AutoSizeText(
+                          'ad_rewarded_complete_lesson_label'.tr(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      if (rewardedAdWatched)
+                        AutoSizeText(
+                          'thanks_a_lot'.tr(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
-
   }
 }

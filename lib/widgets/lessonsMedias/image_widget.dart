@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ImageWidget extends StatelessWidget {
-
   /// *********************************************
   /// Obligatoire :
   ///   - src : L'url du fichier source ou le path dans les assets
@@ -11,44 +11,81 @@ class ImageWidget extends StatelessWidget {
   ///   - align: même "string" que dans Alignement.XXXXXXX
   /// *********************************************
   final dynamic media;
+
   ImageWidget({this.media});
 
   @override
   Widget build(BuildContext context) {
+    // S'il y a du padding, on le récupère
+    double padding = media['padding'] != null ? media['padding'].toDouble() : 0.0;
+
     // Si le fit existe, et si l'alignement existe ...
-    BoxFit imgFit = (media['fit'] != null && IMG_FIT[media['fit']] != null) ? IMG_FIT[media['fit']] : BoxFit.scaleDown;
+    BoxFit imgFit = (media['fit'] != null && IMG_FIT[media['fit']] != null) ? IMG_FIT[media['fit']] : BoxFit.cover; // BoxFit.scaleDown
     Alignment imgAlign = (media['align'] != null && IMG_ALIGN[media['align']] != null) ? IMG_ALIGN[media['align']] : Alignment.center;
+
+    // Un petit fix : S'il y a du padding alors on doit afficher l'image en entier pour ne pas la couper betement
+    imgFit = (padding > 0) ? BoxFit.scaleDown : imgFit;
+    print(imgFit.toString());
 
     // On check si c'est une image d'internet ou interne
     return Container(
-      padding: EdgeInsets.all(0),
+      padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       child: ClipRRect(
         // On découpe les bords en bas, mais seulement si c'est en zoom !
-        borderRadius: (media['fit'] != null && media['fit'] == 'zoom')
+        borderRadius: (imgFit == BoxFit.cover && padding < 5.0)
             ? BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              )
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        )
             : BorderRadius.zero,
         // On switch selon le type d'image (logique)
         child: (media['type'] == 'networkImage')
-            ? Image.network(
-                media['src'],
-                fit: imgFit,
-                alignment: imgAlign,
-              )
+            ? FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: media['src'],
+          fit: imgFit,
+          alignment: imgAlign,
+        )
             : Image.asset(
-                'assets/images/lessons/' + media['src'],
-                fit: imgFit,
-                alignment: imgAlign,
-              ),
+          'assets/images/lessons/' + media['src'],
+          fit: imgFit,
+          alignment: imgAlign,
+        ),
+      ),
+    );
+
+
+    // On check si c'est une image d'internet ou interne
+    return Container(
+      padding: EdgeInsets.all(padding),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.red),
+      alignment: Alignment.center,
+      child: ClipRRect(
+        // On découpe les bords en bas, mais seulement si c'est en zoom !
+        borderRadius: (imgFit == BoxFit.cover && padding == 0.0)
+            ? BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        )
+            : BorderRadius.zero,
+        // On switch selon le type d'image (logique)
+        child: (media['type'] == 'networkImage')
+            ? Image.network(media['src'], fit: imgFit,
+          alignment: imgAlign,)/*FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: media['src'],
+          fit: imgFit,
+          alignment: imgAlign,
+        )*/
+            : Image.asset(
+          'assets/images/lessons/' + media['src'],
+          fit: imgFit,
+          alignment: imgAlign,
+        ),
       ),
     );
   }
-
-
-
 
   //************************************************************
   // QUelques équivalences, histoire de pouvoir décider de ça depuis la base de données...

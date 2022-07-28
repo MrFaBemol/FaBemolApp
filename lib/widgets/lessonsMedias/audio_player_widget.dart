@@ -19,8 +19,10 @@ class AudioPlayerWidget extends StatefulWidget {
 
 class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   AudioPlayer player;
+  StreamSubscription<Duration> playerListener;
   Duration currentTime;
   Duration totalTime;
+
 
   @override
   void initState() {
@@ -33,6 +35,9 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   @override
   void dispose() {
+    if (playerListener != null){
+      playerListener.cancel();
+    }
     player.dispose();
     super.dispose();
   }
@@ -50,7 +55,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   /// *********************************************
   play() {
     player.play();
-    player.positionStream.listen((time) {
+    playerListener = player.positionStream.listen((time) {
       setState(() {
         this.currentTime = time;
       });
@@ -73,8 +78,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
             splashColor: Colors.transparent,
@@ -115,7 +120,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
             divisions: 500,
           ),
         ],
-      ),
+
     );
   }
 }

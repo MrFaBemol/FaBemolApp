@@ -40,6 +40,7 @@ dependencies:
 
   painter: ^0.4.0
   just_audio: ^0.6.12
+  transparent_image: ^1.0.0
   super_rich_text: ^0.2.1+1
 
   flashy_tab_bar: ^0.0.3
@@ -79,16 +80,17 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
-    - assets/images/lessons/
     - assets/images/staff/
     - assets/images/staff/heads/
     - assets/images/staff/keys/
     - assets/images/staff/lines/
     - assets/icons/
-    - assets/icons/lessons/
     - assets/icons/96/
     - assets/icons/240/
     - assets/icons/flags/
+    - assets/icons/lessons/
+    - assets/images/lessons/
+    - assets/images/lessons/notes/
     - assets/sounds/
     - assets/sounds/effects/
     - assets/sounds/notes/piano/
